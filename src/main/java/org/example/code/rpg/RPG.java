@@ -33,11 +33,11 @@ public final class RPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RightClickListener(this), this);
         getServer().getPluginManager().registerEvents(new UnableInstallBedListener(), this);
         this.jobConfigManager = new JobConfigManager(this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this, playerBossBars), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this, playerBossBars, playerO2), this);
+        getServer().getPluginManager().registerEvents(new PlayerMoveListener(this, playerBossBars, playerO2), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, playerO2), this);
         getServer().getPluginManager().registerEvents(new PlayerAttackedListener(playerO2), this);
         getServer().getPluginManager().registerEvents(new MonsterDamageListener(), this);
-        startPlayerCoordinateChecker();
     }
 
     @Override
@@ -50,35 +50,4 @@ public final class RPG extends JavaPlugin {
         return jobConfigManager;
     }
 
-    private void startPlayerCoordinateChecker() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                    double y = player.getLocation().getY();
-                    //getLogger().info(player.getName() + "'s Y : " + y);
-                    BossBar bossBar = playerBossBars.get(player.getUniqueId());
-                    if(y < 60) {
-                        double time = playerO2.get(player.getUniqueId());
-                        if(time > 1) {
-                            player.setHealth(0);
-                            return;
-                        }
-                        if(time < 0) {
-                            time = 0;
-                        }
-                        bossBar.setVisible(true);
-                        bossBar.setProgress(1-time); // 1 - (-1)
-                        getLogger().info(String.valueOf(time));
-                        time += 0.1;
-                        playerO2.put(player.getUniqueId(), time);
-                    } else {
-                        bossBar.setVisible(false);
-                        bossBar.setProgress(1);
-                        playerO2.put(player.getUniqueId(), 0.0);
-                    }
-                }
-            }
-        }.runTaskTimer(this, 0L, 20L * 10); // 0L은 초기 지연 없음, 20L * 10은 10초마다 반복
-    }
 }

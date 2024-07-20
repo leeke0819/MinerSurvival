@@ -32,16 +32,13 @@ public class MonsterDamageListener implements Listener {
             if (monster instanceof Zombie) {
                 event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
             }
-            getLogger().info("좀비");
         }
 
             // 만약 화살에 맞았다면
         if (event.getDamager() instanceof Arrow) {
             Arrow arrow = (Arrow) event.getDamager();
-            getLogger().info("a");
             // 아래 if문 직역하자면 화살을 쏜 존재가 스켈레톤이고 피해를 입은 존재가 플레이어일 경우
             if (arrow.getShooter() instanceof Skeleton && event.getEntity() instanceof Player) {
-                getLogger().info("b");
                 Player player = (Player) event.getEntity();
                 // 플레이어에게 위더 효과 부여하기
                 PotionEffect wither = new PotionEffect(PotionEffectType.WITHER, 200, 0); // 10초 지속

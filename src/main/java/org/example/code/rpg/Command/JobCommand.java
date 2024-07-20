@@ -26,14 +26,12 @@ public class JobCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "플레이어만 사용 가능한 명령어 입니다.");
             return true;
         }
-        getLogger().info("1");
         if (args == null) {
             sender.sendMessage(ChatColor.RED + "전직할 직업과 전직 레벨을 입력해주세요.");
         }
         String command2 = command.getName();
         String job = args[0];
         Player player = (Player) sender;
-        getLogger().info("2");
         createCustomItem(player, command2, job);
         return true;
     }
@@ -42,7 +40,6 @@ public class JobCommand implements CommandExecutor {
         ItemStack customItem = new ItemStack(Material.ENCHANTED_BOOK); // 인챈트된 책으로 커스텀아이템을 생성
         ItemMeta customItemData = customItem.getItemMeta(); // 위에서 생성된 아이템의 데이터를 커스텀아이템데이터로 불러옴.
         String jobColor = "";
-        getLogger().info("3");
 
         // setDisplayName으로 아이템 이름 설정
         switch (command) {
@@ -67,7 +64,6 @@ public class JobCommand implements CommandExecutor {
             default:
                 break;
         }
-        getLogger().info("4");
         customItemData.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l[전직] " + "&r" + jobColor + command + " " + job));
         // 커스텀아이템데이터 설명을 저장할 리스트를 추가함으로써 기존의 아이템 설명을 덮어씀.
         // 즉, 커스텀아이템데이터의 새로운 설명을 저장하는 게 customItemExplain임.
@@ -77,7 +73,6 @@ public class JobCommand implements CommandExecutor {
         customItem.setItemMeta(customItemData); // 커스텀아이템에 커스텀아이템데이터에 저장된 값을 설정함.
         getLogger().info(player.getName());
         player.getInventory().addItem(customItem); // 플레이어 인벤토리에 커스텀 아이템 지급
-        // customItemData.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l[전직] " + "&r&7광부 1차"));
     }
 
     public void giveCustomItemToPlayer(Player player, ItemStack item) {

@@ -46,7 +46,6 @@ public class BlockBreakListener implements Listener {
         String[] a = jobConfigManager.getPlayerJob(player).split(",");
         String job = a[0];
         String level = a[1];
-        getLogger().info(job + level);
 
         // 광석 블록을 캤을 때, 광석 대신 주괴로 나오게끔 설정
         if(blockType == Material.COPPER_ORE) { // 구리 광석
@@ -179,16 +178,45 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        // 산소 게이지 회복
+        // 광부 2차
+        if (job.equals("§7§l광부") && level.equals("2차")) {
+            if(trackedBlocks.contains(blockType)) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20 * 20 , 0));
+            }
+        }
+
+        // 광부 3차
+        if (job.equals("§7§l광부") && level.equals("3차")) {
+            if (trackedBlocks.contains(blockType)) {
+                UUID playerId = player.getUniqueId();
+                int blockCount = playerBlockCount.getOrDefault(playerId, 0) + 1; // 초기값 0으로 설정
+                playerBlockCount.put(playerId, blockCount);
+                if(blockCount >= 50) {
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 30 * 20, 0)); // 30초 동안 성급함 2 부여
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a돌이나 광물을 50개 캐서 &e성급함 2 효과&a를 &e30초&a 동안 받았습니다!"));
+                    playerBlockCount.put(playerId, 0);
+                }
+            }
+        }
+
+        // 광부 4차
+        if (job.equals("§7§l광부") && level.equals("4차")) {
+            int potionMaxLevel = Integer.MAX_VALUE; // spigot api에서 포션 지속효과 무한으로 하려면 이 방법밖에 없음.
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, potionMaxLevel, 0));
+        }
+
+        // 산소 회복
         double time = playerO2.get(player.getUniqueId());
         switch (blockType) {
             case COAL_ORE:
-                time -= 0.1;
+                time -= 60.0;
                 playerO2.put(player.getUniqueId(), time);
-                player.sendMessage("석탄 광석을 부쉈습니다!");
+                player.sendMessage("석탄 광석을 부숴서 산소 농도가 10만큼 더 높아졌습니다!");
                 break;
             case COPPER_ORE:
-                player.sendMessage("구리 광석을 부쉈습니다!");
+                time += 20.0;
+                playerO2.put(player.getUniqueId(), time);
+                player.sendMessage("구리 광석을 부숴서 산소 농도가 20만큼 더 높아졌습니다!");
                 break;
             case IRON_ORE:
                 player.sendMessage("철 광석을 부쉈습니다!");

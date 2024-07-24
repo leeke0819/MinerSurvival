@@ -82,5 +82,5 @@ The features of this plugin are as follows.
 |:-----:|:-------------------------:|
 | Level 1 | If you dig for minerals, you get five more with a 10% chance.<br/>When you dig 50 stones or minerals, it gives you a Haste 1 effect for 30 seconds.<br/>(However, if the Haste 1 effect is already in effect, it is not duplicated.<br/>This effect does not apply when miner level 3 is reached.)
 | Level 2 | When digging for stones or minerals, it gives 30 seconds of Night Vision effect. (30 seconds of cool time) |
-| Level 3 | When you dig 50 stones or minerals, it gives you a Haste 2 effect for 30 seconds. (However, if the Haste 1 effect is already in effect, it is not duplicated.) |
+| Level 3 | When you dig 50 stones or minerals, it gives you a Haste 2 effect for 30 seconds.<br/>(However, if the Haste 1 effect is already in effect, it is not duplicated.) |
 | Level 4 | Grant infinite Fire Resistance effect. |

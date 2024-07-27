@@ -55,7 +55,6 @@ public class PlayerMoveListener implements Listener {
                 BukkitRunnable timer = new BukkitRunnable() {
                     @Override
                     public void run() {
-                        player.sendMessage("1");
                         BossBar currentBossBar = playerBossBars.get(playerId);
                         if (player.isOnline() && player.getLocation().getY() < 60) {
                             double timeLeft = playerO2.get(playerId); // 플레이어의 남은 산소 시간을 timeLeft로 가져오기

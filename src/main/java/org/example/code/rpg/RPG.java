@@ -30,6 +30,7 @@ public final class RPG extends JavaPlugin {
         this.getCommand("연금술사").setExecutor(new JobCommand(this));
         this.getCommand("돈").setExecutor(new MoneyCommand(this));
         this.getCommand("도움말").setExecutor(new PluginHelpCommand(this));
+        this.getCommand("테스트").setExecutor(new GuiCommand());
         getServer().getPluginManager().registerEvents(new RightClickListener(this), this);
         getServer().getPluginManager().registerEvents(new UnableInstallBedListener(), this);
         this.jobConfigManager = new JobConfigManager(this);
@@ -38,6 +39,7 @@ public final class RPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, playerO2), this);
         getServer().getPluginManager().registerEvents(new PlayerAttackedListener(playerO2), this);
         getServer().getPluginManager().registerEvents(new MonsterDamageListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
     }
 
     @Override

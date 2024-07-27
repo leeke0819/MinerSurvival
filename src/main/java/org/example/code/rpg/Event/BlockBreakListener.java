@@ -209,7 +209,7 @@ public class BlockBreakListener implements Listener {
         double time = playerO2.get(player.getUniqueId());
         switch (blockType) {
             case COAL_ORE:
-                time -= 60.0;
+                time += 10.0;
                 playerO2.put(player.getUniqueId(), time);
                 player.sendMessage("석탄 광석을 부숴서 산소 농도가 10만큼 더 높아졌습니다!");
                 break;
@@ -219,34 +219,49 @@ public class BlockBreakListener implements Listener {
                 player.sendMessage("구리 광석을 부숴서 산소 농도가 20만큼 더 높아졌습니다!");
                 break;
             case IRON_ORE:
+                time += 30.0;
                 player.sendMessage("철 광석을 부쉈습니다!");
                 break;
             case GOLD_ORE:
+                time += 40.0;
                 player.sendMessage("금 광석을 부쉈습니다!");
                 break;
             case REDSTONE_ORE:
+                time += 15.0;
                 player.sendMessage("레드스톤 광석을 부쉈습니다!");
                 break;
             case LAPIS_ORE:
+                time += 60.0;
                 player.sendMessage("청금석 광석을 부쉈습니다!");
                 break;
             case EMERALD_ORE:
+                time += 240.0;
                 player.sendMessage("에메랄드 광석을 부쉈습니다!");
                 break;
             case DIAMOND_ORE:
+                time += 120.0;
                 player.sendMessage("다이아몬드 광석을 부쉈습니다!");
                 break;
             case AMETHYST_CLUSTER:
+                time += 50.0;
                 player.sendMessage("자수정 결정을 부쉈습니다!");
                 break;
             case NETHER_GOLD_ORE:
+                time += 45.0;
                 player.sendMessage("네더 금 광석을 부쉈습니다!");
                 break;
             case NETHER_QUARTZ_ORE:
+                time += 55.0;
                 player.sendMessage("네더 석영 광석을 부쉈습니다!");
                 break;
             case ANCIENT_DEBRIS:
+                time += 300.0;
                 player.sendMessage("고대 잔해를 부쉈습니다!");
+                break;
+            case WHITE_CONCRETE:
+                time -= 60.0;
+                playerO2.put(player.getUniqueId(), time);
+                player.sendMessage("[테스트] 산소 농도가 60(초)만큼 줄었습니다");
                 break;
         }
     }

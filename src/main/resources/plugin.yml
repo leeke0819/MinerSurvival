@@ -34,3 +34,7 @@ commands:
   도움말:
     description: MinerSurvival 플러그인의 도움말을 확인합니다.
     usage: /도움말
+
+  테스트:
+    description: x
+    usage: e

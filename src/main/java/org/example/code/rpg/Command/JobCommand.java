@@ -42,27 +42,8 @@ public class JobCommand implements CommandExecutor {
         String jobColor = "";
 
         // setDisplayName으로 아이템 이름 설정
-        switch (command) {
-            case "광부":
-                jobColor = "&7&l";
-                break;
-            case "나무꾼":
-                jobColor = "&6&l";
-                break;
-            case "농부":
-                jobColor = "&a&l";
-                break;
-            case "사냥꾼":
-                jobColor = "&3&l";
-                break;
-            case "어부":
-                jobColor = "&b&l";
-                break;
-            case "연금술사":
-                jobColor = "&d&l";
-                break;
-            default:
-                break;
+        if (command.equals("광부")) {
+            jobColor = "&7&l";
         }
         customItemData.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l[전직] " + "&r" + jobColor + command + " " + job));
         // 커스텀아이템데이터 설명을 저장할 리스트를 추가함으로써 기존의 아이템 설명을 덮어씀.
@@ -71,7 +52,6 @@ public class JobCommand implements CommandExecutor {
         customItemExplain.add(command + " " + job + "로 전직합니다.");
         customItemData.setLore(customItemExplain); // 커스텀아이템데이터에 커스텀아이템설명을 설정(아직 커스텀 아이템에 커스텀한 설명을 저장 안함)
         customItem.setItemMeta(customItemData); // 커스텀아이템에 커스텀아이템데이터에 저장된 값을 설정함.
-        getLogger().info(player.getName());
         player.getInventory().addItem(customItem); // 플레이어 인벤토리에 커스텀 아이템 지급
     }
 

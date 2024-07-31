@@ -7,26 +7,6 @@ commands:
     description: 광부 n차 전직 책을 받습니다.
     usage: /광부 <1~4차>
 
-  나무꾼:
-    description: 나무꾼 n차 전직 책을 받습니다.
-    usage: /나무꾼 <1~4차>
-
-  농부:
-    description: 농부 n차 전직 책을 받습니다.
-    usage: /농부 <1~4차>
-
-  사냥꾼:
-    description: 사냥꾼 n차 전직 책을 받습니다.
-    usage: /사냥꾼 <1~4차>
-
-  어부:
-    description: 어부 n차 전직 책을 받습니다.
-    usage: /어부 <1~4차>
-
-  연금술사:
-    description: 연금술사 n차 전직 책을 받습니다.
-    usage: /연금술사 <1~4차>
-
   돈:
     description: 현재 잔액을 확인합니다.
     usage: /돈
@@ -35,6 +15,6 @@ commands:
     description: MinerSurvival 플러그인의 도움말을 확인합니다.
     usage: /도움말
 
-  테스트:
+  메뉴:
     description: x
     usage: e

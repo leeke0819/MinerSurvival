@@ -23,14 +23,9 @@ public final class RPG extends JavaPlugin {
         getLogger().info("MinerSurvival Plugin이 적용되었습니다.");
         this.saveDefaultConfig();
         this.getCommand("광부").setExecutor(new JobCommand(this));
-        this.getCommand("나무꾼").setExecutor(new JobCommand(this));
-        this.getCommand("농부").setExecutor(new JobCommand(this));
-        this.getCommand("사냥꾼").setExecutor(new JobCommand(this));
-        this.getCommand("어부").setExecutor(new JobCommand(this));
-        this.getCommand("연금술사").setExecutor(new JobCommand(this));
         this.getCommand("돈").setExecutor(new MoneyCommand(this));
         this.getCommand("도움말").setExecutor(new PluginHelpCommand(this));
-        this.getCommand("테스트").setExecutor(new GuiCommand());
+        this.getCommand("메뉴").setExecutor(new GuiCommand(this));
         getServer().getPluginManager().registerEvents(new RightClickListener(this), this);
         getServer().getPluginManager().registerEvents(new UnableInstallBedListener(), this);
         this.jobConfigManager = new JobConfigManager(this);

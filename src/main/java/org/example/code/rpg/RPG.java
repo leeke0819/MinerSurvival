@@ -34,7 +34,7 @@ public final class RPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, playerO2), this);
         getServer().getPluginManager().registerEvents(new PlayerAttackedListener(playerO2), this);
         getServer().getPluginManager().registerEvents(new MonsterDamageListener(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(this), this);
     }
 
     @Override

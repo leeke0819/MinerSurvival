@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.example.code.rpg.Manager.JobConfigManager;
 import org.example.code.rpg.RPG;
 
 import static org.bukkit.Bukkit.getLogger;
@@ -36,14 +37,19 @@ public class RightClickListener implements Listener {
         ItemMeta meta = item.getItemMeta();
         if(meta.hasDisplayName()) {
             String jobBook = meta.getDisplayName(); // 우클릭한 책의 이름 가져오기(ex. [전직] 광부 1차 책이 있으면 '[전직] 광부 1차'가 jobBook에 저장.)
-            getLogger().info(jobBook);
-            if(plugin.getJobConfig().jobBookNameCheck(jobBook)) {
+            JobConfigManager jobConfig = plugin.getJobConfig();
+            String currentLevel = jobConfig.getPlayerJob(player).split(",")[1];
+            if(jobConfig.jobBookNameCheck(jobBook, currentLevel)) {
                 String[] share = jobBook.split(" "); // 공백을 기준으로 배열 나누기
                 // 배열의 길이 확인하기 (split으로 나눈 건 배열로 인정 안됨. 배열 길이 4로 오해하지 말자!)
                 if(share.length == 3) {
-                    plugin.getJobConfig().jobCreate(player,share[1],share[2]);
+                    jobConfig.jobCreate(player, share[1], share[2]);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', share[1] + " " + share[2] + "&r입니다!"));
+                } else {
+                    player.sendMessage(ChatColor.RED + "잘못된 직업 형식 입니다.");
                 }
+            } else {
+                player.sendMessage(ChatColor.RED + "이 책으로는 직업을 바꿀 수 없습니다.");
             }
         }
     }
@@ -57,6 +63,6 @@ public class RightClickListener implements Listener {
         String job = meta.getPersistentDataContainer().get(jobKey, PersistentDataType.STRING);
         String level = meta.getPersistentDataContainer().get(levelKey, PersistentDataType.STRING);
 
-        return job != null && level != null && plugin.getJobConfig().jobBookNameCheck(job);
+        return job != null && level != null && plugin.getJobConfig().jobBookNameCheck(job, level);
     }
 }

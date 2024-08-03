@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class GuiManager {
     public GuiManager() {}
     public void openGui(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 27, "메뉴");
+        Inventory basicsInventory = Bukkit.createInventory(null, 27, "메뉴");
 
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
         ItemStack itemStack1 = new ItemStack(Material.ENCHANTED_BOOK, 1);
@@ -55,37 +55,37 @@ public class GuiManager {
 
 
         for(int i = 0; i < 9; i++) {
-            inventory.setItem(i, itemStack);
+            basicsInventory.setItem(i, itemStack);
         }
-        inventory.setItem(9, itemStack);
+        basicsInventory.setItem(9, itemStack);
 
-        inventory.setItem(10, itemStack1);
-        inventory.setItem(12, itemStack2);
-        inventory.setItem(14, itemStack3);
-        inventory.setItem(16, itemStack4);
+        basicsInventory.setItem(10, itemStack1);
+        basicsInventory.setItem(12, itemStack2);
+        basicsInventory.setItem(14, itemStack3);
+        basicsInventory.setItem(16, itemStack4);
 
-        inventory.setItem(17, itemStack);
+        basicsInventory.setItem(17, itemStack);
         for(int i = 18; i < 27; i++) {
-            inventory.setItem(i, itemStack);
+            basicsInventory.setItem(i, itemStack);
         }
-        player.openInventory(inventory);
+        player.openInventory(basicsInventory);
     }
 
     public void jobShop(Player player){
-        Inventory newInventory = Bukkit.createInventory(null, 45, "전직 상점");
+        Inventory jobShopInventory = Bukkit.createInventory(null, 45, "전직 상점");
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
         for (int i = 0; i < 9; i++) {
-            newInventory.setItem(i, itemStack);
+            jobShopInventory.setItem(i, itemStack);
         }
-        newInventory.setItem(9, itemStack);
-        newInventory.setItem(17, itemStack);
-        newInventory.setItem(18, itemStack);
-        newInventory.setItem(26, itemStack);
-        newInventory.setItem(27, itemStack);
-        newInventory.setItem(35, itemStack);
+        jobShopInventory.setItem(9, itemStack);
+        jobShopInventory.setItem(17, itemStack);
+        jobShopInventory.setItem(18, itemStack);
+        jobShopInventory.setItem(26, itemStack);
+        jobShopInventory.setItem(27, itemStack);
+        jobShopInventory.setItem(35, itemStack);
         for (int i = 36; i < 45; i++) {
-            newInventory.setItem(i, itemStack);
+            jobShopInventory.setItem(i, itemStack);
         }
-        player.openInventory(newInventory);
+        player.openInventory(jobShopInventory);
     }
 }

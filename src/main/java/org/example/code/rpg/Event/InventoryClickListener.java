@@ -5,11 +5,22 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.example.code.rpg.Manager.GuiManager;
+import org.example.code.rpg.Manager.JobConfigManager;
+import org.example.code.rpg.Manager.MoneyManager;
+import org.example.code.rpg.RPG;
+
+import java.util.Objects;
 
 public class InventoryClickListener implements Listener {
+    private RPG plugin;
+    public InventoryClickListener(RPG plugin) {
+        this.plugin = plugin;
+    }
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if(!event.getView().getTitle().equals("메뉴") && !event.getView().getTitle().equals("전직 상점")) return;
@@ -26,7 +37,10 @@ public class InventoryClickListener implements Listener {
                 else if (clickedItem.getType() == Material.AIR) {
                     return;
                 }
-                //여기서 elseif 계속 써가면서 커스텀아이템 검증하는 로직 작성
+                else if (Objects.requireNonNull(clickedItem.getItemMeta()).getDisplayName().equals("광부 1차")) {
+                    MoneyManager moneyManager = new MoneyManager(plugin);
+
+                }
             }
             event.setCancelled(true);
         }

@@ -1,8 +1,10 @@
 package org.example.code.rpg.Event;
 
+import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,12 +23,13 @@ import static org.bukkit.Bukkit.getServer;
 public class PlayerJoinListener implements Listener {
     private PlayerScoreboardManager playerScoreboardManager;
     private MoneyManager moneyManager;
-
     private HashMap<UUID, BossBar> playerBossBars;
     private Map<UUID, Double> playerO2;
     private final double initialTime = 600.0;
+    private RPG plugin;
 
     public PlayerJoinListener(RPG plugin, HashMap<UUID, BossBar> playerBossBars, Map<UUID, Double> playerO2) {
+        this.plugin = plugin;
         this.playerScoreboardManager = new PlayerScoreboardManager(plugin);
         this.moneyManager = new MoneyManager(plugin);
         this.playerBossBars = playerBossBars;
@@ -35,13 +38,25 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        playerScoreboardManager.setPlayerScoreboard(event.getPlayer());
         Player player = event.getPlayer();
-        player.sendMessage("서버에 들어오신 걸 환영합니다!");
+        playerScoreboardManager.setPlayerScoreboard(player);
+
+        // config에서 플레이어의 사용자 지정 이름 가져오기
+        FileConfiguration config = plugin.getConfig();
+        String playerName = config.getString("users." + player.getUniqueId().toString() + ".name", player.getName());
+
+        // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
+        player.setDisplayName(playerName);
+        player.setPlayerListName(playerName);
+
+        event.setJoinMessage(ChatColor.GREEN + "[+] " + ChatColor.WHITE + playerName);
+
         // 플레이어가 이전에 접속한 적이 있는지 확인 -> hasPlayedBefore() 메서드
         if (!player.hasPlayedBefore()) {
+            player.sendMessage("서버에 들어오신 걸 환영합니다!");
             moneyManager.setBalance(event.getPlayer(), 1000);  // 처음 접속할 때 1000원 지급
         }
+
         BossBar bossBar = getServer().createBossBar("산소 고갈까지 남은 시간 : 10분 00초", BarColor.GREEN, BarStyle.SOLID);
         bossBar.addPlayer(player);
         bossBar.setProgress(1.0); // 진행률을 100%로 설정
@@ -52,9 +67,18 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
         BossBar bossBar = playerBossBars.remove(event.getPlayer().getUniqueId());
         if (bossBar != null) {
             bossBar.removeAll();
         }
+        // config에서 플레이어의 사용자 지정 이름 가져오기
+        FileConfiguration config = plugin.getConfig();
+        String playerName = config.getString("users." + player.getUniqueId().toString() + ".name", player.getName());
+
+        // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
+        player.setDisplayName(playerName);
+        player.setPlayerListName(playerName);
+        event.setQuitMessage(ChatColor.RED + "[-] " + ChatColor.WHITE + playerName);
     }
 }

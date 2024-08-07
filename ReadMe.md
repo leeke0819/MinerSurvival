@@ -15,6 +15,8 @@
   
 - **광석을 캐면 아래의 표에 적혀있는 만큼 산소 게이지가 채워집니다.**
   - **단, 산소 게이지는 최대 30분까지 늘릴 수 있습니다.**
+
+- **y좌표 60이하에는 침대를 설치할 수 없습니다.**
     
 | 월드 | 광석 이름 | 광석에 포함된 산소량 (단위 : 초) |
 |:----------:|:----------:|:----------:|
@@ -60,6 +62,8 @@ The features of this plugin are as follows.
 
 - **When the ore is dug out, the oxygen gauge is filled as shown in the table below.**
   - **However, the oxygen gauge can be increased up to 30 minutes.**
+
+- **Bed cannot be installed below y-coordinate 60.**
 
 | World | Ore Name | Ore contains oxygen amount (Unit : Seconds) |
 |:----------:|:----------:|:----------:|

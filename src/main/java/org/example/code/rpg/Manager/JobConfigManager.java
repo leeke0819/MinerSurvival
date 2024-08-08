@@ -26,7 +26,7 @@ public class JobConfigManager {
 
     public String getPlayerJob(Player player) {
         FileConfiguration config = plugin.getConfig();
-        String job = config.getString("users." + player.getUniqueId().toString() + ".job", "직업 없음");
+        String job = config.getString("users." + player.getUniqueId().toString() + ".job", "광부");
         String level = config.getString("users." + player.getUniqueId().toString() + ".level", "1차");
         return job + "," + level;
     }

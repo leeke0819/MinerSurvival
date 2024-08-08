@@ -36,7 +36,7 @@ public class NameChangeTokenCommand implements CommandExecutor {
         return true;
     }
 
-    private ItemStack createNameChangeToken() {
+    public ItemStack createNameChangeToken() {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {

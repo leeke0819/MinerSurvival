@@ -2,6 +2,7 @@ name: RPG
 version: '${version}'
 main: org.example.code.rpg.RPG
 api-version: '1.20'
+load: STARTUP
 commands:
   광부:
     description: 광부 n차 전직 책을 받습니다.

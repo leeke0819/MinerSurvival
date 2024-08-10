@@ -6,7 +6,7 @@ group = 'org.example.code'
 version = '1.0'
 
 jar {
-    destinationDirectory = new File("C:\\Users\\MEGA\\Desktop\\마크\\서버\\1.20.4\\plugins")
+    destinationDirectory = new File("C:\\Users\\User\\Desktop\\마크\\서버\\1.20.4\\plugins")
     // MEGA 부분 User로 바꿔야 함.
 }
 

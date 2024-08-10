@@ -47,6 +47,7 @@ public class RightClickListener implements Listener {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', share[1] + " " + share[2] + "&r입니다!"));
                     updatePlayerScoreboard(player);
                     plugin.saveConfig();
+<<<<<<< HEAD
 
                     // 직업 책 우클릭 후, 인벤토리에서 삭제하기(1회용 아이템)
                     if (item.getAmount() > 1) {
@@ -54,6 +55,8 @@ public class RightClickListener implements Listener {
                     } else {
                         player.getInventory().remove(item);
                     }
+=======
+>>>>>>> fff834ad3e1bf702bfaff49ad9ef7bbd141dbd72
                 }
             }
         }

@@ -44,9 +44,16 @@ public class BlockBreakListener implements Listener {
         Material blockType = block.getType();
         Player player = event.getPlayer();
         JobConfigManager jobConfigManager = new JobConfigManager(plugin);
-        String[] a = jobConfigManager.getPlayerJob(player).split(",");
-        String job = a[0];
-        String level = a[1];
+        String[] jobData = jobConfigManager.getPlayerJob(player).split(",");
+
+        String job = "직업 없음"; // 찾을 수 없는 경우 기본 직업
+        String level = ""; // 찾을 수 없는 경우, 직업 레벨
+
+        // jobData에 2개 이상의 요소가 있는지 확인
+        if (jobData.length >= 2) {
+            job = jobData[0];
+            level = jobData[1];
+        }
 
         // 광석 블록을 캤을 때, 광석 대신 주괴로 나오게끔 설정
         if(blockType == Material.COPPER_ORE) { // 구리 광석

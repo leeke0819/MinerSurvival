@@ -45,18 +45,12 @@ public final class RPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this, playerO2), this);
         getServer().getPluginManager().registerEvents(new PlayerAttackedListener(playerO2), this);
         getServer().getPluginManager().registerEvents(new MonsterDamageListener(), this);
-<<<<<<< HEAD
         getServer().getPluginManager().registerEvents(new RightClickListener(this), this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(this, guiManager, moneyManager, scoreboardManager), this);
         getServer().getPluginManager().registerEvents(new RenameAnvilListener(), this);
         getServer().getPluginManager().registerEvents(new NameChangeListener(this), this);
         getServer().getPluginManager().registerEvents(new UnableInstallBedListener(), this);
         getServer().getPluginManager().registerEvents(new WorldInitListener(), this);
-=======
-        getServer().getPluginManager().registerEvents(new InventoryClickListener(this, guiManager, moneyManager, scoreboardManager), this);
-        getServer().getPluginManager().registerEvents(new RenameAnvilListener(), this);
-        getServer().getPluginManager().registerEvents(new NameChangeListener(this), this);
->>>>>>> fff834ad3e1bf702bfaff49ad9ef7bbd141dbd72
         getServer().getPluginManager().registerEvents(nameChangeManager, this);
     }
 

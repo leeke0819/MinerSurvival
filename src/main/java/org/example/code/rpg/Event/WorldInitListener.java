@@ -53,7 +53,6 @@ public class WorldInitListener implements Listener {
         String posZ = String.valueOf(z);
         Bukkit.getLogger().info(posZ);
 
-<<<<<<< HEAD
         int intX = (int) x;
         int intZ = (int) z;
 
@@ -61,16 +60,9 @@ public class WorldInitListener implements Listener {
         Random random = new Random();
         int intY = 61 + random.nextInt(75 - 61 + 1);
 
-        // Create and place the building
         StructureBuilding building = new StructureBuilding();
         building.generate(world, intX, intY, intZ);
     }
 }
 // 블럭 하나 찍고, 서버 들어가서 확인
 // 스위칭 처리(0과 1로만) 1회성 제한 해보기
-=======
-        // 블럭 하나 찍고, 서버 들어가서 확인
-        // 스위칭 처리(0과 1로만) 1회성 제한 해보기
-    }
-}
->>>>>>> fff834ad3e1bf702bfaff49ad9ef7bbd141dbd72

@@ -11,9 +11,11 @@ import org.example.code.rpg.RPG;
 
 public class MoneyCommand implements CommandExecutor {
     private RPG plugin;
+
     public MoneyCommand(RPG plugin) {
         this.plugin = plugin;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         MoneyManager moneyManager = new MoneyManager(this.plugin);
@@ -42,7 +44,7 @@ public class MoneyCommand implements CommandExecutor {
                 }
                 try {
                     if (player.isOp()) {
-                        double sendMoney = Double.parseDouble(args[2]); //args[2]를 double로 변환한 걸 money에 저장
+                        int sendMoney = Integer.parseInt(args[2]);
                         //만약 입금할 금액이 양수가 아니면
                         if (sendMoney < 0) {
                             player.sendMessage(ChatColor.RED + "입금할 금액은 양수로 입력해주세요.");
@@ -50,7 +52,7 @@ public class MoneyCommand implements CommandExecutor {
                         }
                         moneyManager.addBalance(targetPlayer, sendMoney); //타겟 플레이어의 잔액에 sendMoney만큼의 금액을 추가
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a성공적으로 &e" + sendMoney + "&a원을 &e" + targetPlayer.getName() + "&a에게 입금했습니다."));
-                        targetPlayer.sendMessage(ChatColor.YELLOW + Double.toString(sendMoney) + ChatColor.GREEN + "이(가) " + ChatColor.YELLOW + "입금" + ChatColor.GREEN + "되었습니다.");
+                        targetPlayer.sendMessage(ChatColor.YELLOW + Integer.toString(sendMoney) + ChatColor.GREEN + "이(가) " + ChatColor.YELLOW + "입금" + ChatColor.GREEN + "되었습니다.");
                     } else {
                         player.sendMessage(ChatColor.RED + "이 명령어는 op만 사용 가능한 명령어 입니다.");
                     }
@@ -63,8 +65,8 @@ public class MoneyCommand implements CommandExecutor {
                 } catch (NumberFormatException e) {
                     player.sendMessage(ChatColor.RED + "금액 형식이 올바르지 않습니다.");
                 }
-            } else if(command.getName().equals("돈") && args[0].equals("송금")) {
-                if(targetPlayer == null) {
+            } else if (command.getName().equals("돈") && args[0].equals("송금")) {
+                if (targetPlayer == null) {
                     player.sendMessage(ChatColor.RED + "해당 플레이어를 찾을 수 없습니다.");
                     return true;
                 }
@@ -74,7 +76,7 @@ public class MoneyCommand implements CommandExecutor {
                     return true;
                 }
                 try {
-                    double transferAmount = Double.parseDouble(args[2]);
+                    int transferAmount = Integer.parseInt(args[2]);
                     if (transferAmount < 0) {
                         player.sendMessage(ChatColor.RED + "송금할 금액은 양수로 입력해주세요.");
                         return true;
@@ -89,7 +91,7 @@ public class MoneyCommand implements CommandExecutor {
                     // 타겟 플레이어의 잔액에 추가
                     moneyManager.addBalance(targetPlayer, transferAmount);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a성공적으로 &e" + transferAmount + "&a원을 &e" + targetPlayer.getName() + "&a에게 송금했습니다."));
-                    targetPlayer.sendMessage(ChatColor.YELLOW + Double.toString(transferAmount) + ChatColor.GREEN + "이(가) " + ChatColor.YELLOW + "송금" + ChatColor.GREEN + "되었습니다.");
+                    targetPlayer.sendMessage(ChatColor.YELLOW + Integer.toString(transferAmount) + ChatColor.GREEN + "이(가) " + ChatColor.YELLOW + "송금" + ChatColor.GREEN + "되었습니다.");
 
                     // 스코어보드 업데이트
                     if (targetPlayer.isOnline()) {
@@ -99,15 +101,15 @@ public class MoneyCommand implements CommandExecutor {
                 } catch (NumberFormatException e) {
                     player.sendMessage(ChatColor.RED + "금액 형식이 올바르지 않습니다.");
                 }
-            } else if(command.getName().equals("돈") && args[0].equals("출금")) {
+            } else if (command.getName().equals("돈") && args[0].equals("출금")) {
                 // 서버에 있는 플레이어들 중에서 해당 이름을 찾을 수 없다면
-                if(targetPlayer == null) {
+                if (targetPlayer == null) {
                     player.sendMessage(ChatColor.RED + "해당 플레이어를 찾을 수 없습니다.");
                     return true;
                 }
                 try {
-                    if(player.isOp()) {
-                        double withdrawMoney = Double.parseDouble(args[2]);
+                    if (player.isOp()) {
+                        int withdrawMoney = Integer.parseInt(args[2]);
                         if (withdrawMoney < 0) {
                             player.sendMessage(ChatColor.RED + "출금할 금액은 양수로 입력해주세요.");
                             return true;
@@ -117,8 +119,8 @@ public class MoneyCommand implements CommandExecutor {
                             return true;
                         }
                         moneyManager.subtractBalance(targetPlayer, withdrawMoney);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&a성공적으로 &e" + withdrawMoney + "&a원을 &e" + targetPlayer.getName() + "&a의 잔액에서 출금했습니다."));
-                        targetPlayer.sendMessage(ChatColor.RED + Double.toString(withdrawMoney) + ChatColor.GREEN + "이(가) " + ChatColor.RED + "출금" + ChatColor.GREEN + "되었습니다.");
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a성공적으로 &e" + withdrawMoney + "&a원을 &e" + targetPlayer.getName() + "&a의 잔액에서 출금했습니다."));
+                        targetPlayer.sendMessage(ChatColor.RED + Integer.toString(withdrawMoney) + ChatColor.GREEN + "이(가) " + ChatColor.RED + "출금" + ChatColor.GREEN + "되었습니다.");
                     } else {
                         player.sendMessage(ChatColor.RED + "이 명령어는 op만 사용 가능한 명령어 입니다.");
                     }
@@ -131,7 +133,6 @@ public class MoneyCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "금액 형식이 올바르지 않습니다.");
                 }
                 return true;
-
             }
         }
         return true;

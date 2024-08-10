@@ -2,6 +2,7 @@ name: RPG
 version: '${version}'
 main: org.example.code.rpg.RPG
 api-version: '1.20'
+load: STARTUP
 commands:
   광부:
     description: 광부 n차 전직 책을 받습니다.
@@ -16,5 +17,9 @@ commands:
     usage: /도움말
 
   메뉴:
-    description: x
-    usage: e
+    description: 다양한 기능이 있는 메뉴를 오픈합니다.
+    usage: /메뉴
+
+  이름변경권:
+    description: 이름 변경권을 받습니다.
+    usage: /이름변경권

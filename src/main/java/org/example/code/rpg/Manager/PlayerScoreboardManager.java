@@ -23,11 +23,13 @@ public class PlayerScoreboardManager {
         objective = scoreboard.registerNewObjective("1", "dummy", ChatColor.BOLD + "플레이어 정보");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        Score nameScore = objective.getScore(ChatColor.translateAlternateColorCodes('&',"&l이름 : " + ChatColor.YELLOW + player.getName()));
+        String playerName = config.getString("users." + player.getUniqueId().toString() + ".name", player.getName());
+
+        Score nameScore = objective.getScore(ChatColor.translateAlternateColorCodes('&',"&l이름 : " + ChatColor.YELLOW + "&l" + playerName));
         nameScore.setScore(3);
 
-        String job = config.getString("users." + player.getUniqueId().toString() + ".job", "직업 없음");
-        String level = config.getString("users." + player.getUniqueId().toString() + ".level", "");
+        String job = config.getString("users." + player.getUniqueId().toString() + ".job", "광부");
+        String level = config.getString("users." + player.getUniqueId().toString() + ".level", "1차");
         Score jobScore = objective.getScore(ChatColor.BOLD + "직업 : " + job + " " + level);
         jobScore.setScore(2);
 

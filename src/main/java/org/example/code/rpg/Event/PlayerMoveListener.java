@@ -1,6 +1,7 @@
 package org.example.code.rpg.Event;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,7 +24,7 @@ public class PlayerMoveListener implements Listener {
     private Map<UUID, Double> playerO2;
     private Map<UUID, BukkitRunnable> activeTimers;
     private final double initialTime = 600.0;
-    private final double maxTime = 1800.0; // Maximum time limit
+    private final double maxTime = 1800.0; // 최대 시간
     private RPG plugin;
 
     public PlayerMoveListener(RPG plugin, HashMap<UUID, BossBar> playerBossBars, Map<UUID, Double> playerO2) {
@@ -71,7 +72,9 @@ public class PlayerMoveListener implements Listener {
                             double timeLeft = timeLeftObj;
                             if (timeLeft <= 0) {
                                 player.damage(5); // 플레이어 죽이기
-
+                                if(player.getGameMode() == GameMode.CREATIVE) {
+                                    player.setHealth(0);
+                                }
                                 // 보스바가 null이 아니라면
                                 if (currentBossBar != null) {
                                     currentBossBar.setVisible(false); // 보스바 숨기기
@@ -130,7 +133,7 @@ public class PlayerMoveListener implements Listener {
 
         Location lavaLocation = playerLocation.clone().add(randomX, randomY, 0);
         Block block = lavaLocation.getBlock();
-        if(block.getType() == Material.STONE) {
+        if (block.getType() == Material.STONE) {
             block.setType(Material.LAVA);
         }
     }

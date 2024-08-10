@@ -2,3 +2,5 @@ users:
   4c247728-6459-4b42-932c-e49715f62f76:
     job: "광부"
     level: "1차"
+    economy: 1000
+    name: ""

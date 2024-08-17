@@ -15,12 +15,18 @@ import org.example.code.rpg.Manager.PlayerScoreboardManager;
 import org.example.code.rpg.RPG;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InventoryClickListener implements Listener {
-    private RPG plugin;
-    private GuiManager guiManager;
-    private MoneyManager moneyManager;
-    private PlayerScoreboardManager scoreboardManager;
+    private final RPG plugin;
+    private final GuiManager guiManager;
+    private final MoneyManager moneyManager;
+    private final PlayerScoreboardManager scoreboardManager;
+
+    private final Map<Player, Integer> copperSales = new HashMap<>();
+    private final Map<Player, Integer> lapisSales = new HashMap<>();
+    private final Map<Player, Integer> quartzSales = new HashMap<>();
 
     public InventoryClickListener(RPG plugin, GuiManager guiManager, MoneyManager moneyManager, PlayerScoreboardManager scoreboardManager) {
         this.plugin = plugin;
@@ -32,7 +38,7 @@ public class InventoryClickListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         String inventoryTitle = event.getView().getTitle();
-        if (!inventoryTitle.equals("메뉴") && !inventoryTitle.equals("전직 상점") && !inventoryTitle.equals("광물 상점")) return;
+        if (!inventoryTitle.equals("메뉴") && !inventoryTitle.equals("전직 상점") && !inventoryTitle.equals("광물 상점") && !inventoryTitle.equals("해결 단서")) return;
 
         Player player = (Player) event.getWhoClicked();
         ItemStack clickedItem = event.getCurrentItem();
@@ -53,120 +59,36 @@ public class InventoryClickListener implements Listener {
             if (displayName.equals("전직")) {
                 guiManager.jobShop(player);
             } else if (displayName.equals("[전직] 광부 1차")) {
-                int cost = 10000;
-                if (moneyManager.getBalance(player) >= cost) {
-                    moneyManager.subtractBalance(player, cost);
-                    player.sendMessage(ChatColor.GREEN + "성공적으로 구매 완료했습니다!");
-
-                    ItemStack customItem = createCustomItem("광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
-                    addCustomItemToPlayer(player, customItem);
-                    scoreboardManager.setPlayerScoreboard(player);
-                } else {
-                    player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
-                }
+                processJobPurchase(player, 10000, "광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
             } else if (displayName.equals("[전직] 광부 2차")) {
-                int cost = 30000;
-                if (moneyManager.getBalance(player) >= cost) {
-                    moneyManager.subtractBalance(player, cost);
-                    player.sendMessage(ChatColor.GREEN + "성공적으로 구매 완료했습니다!");
-
-                    ItemStack customItem = createCustomItem("광부 2차", ChatColor.DARK_PURPLE + "광부 2차로 전직합니다.");
-                    addCustomItemToPlayer(player, customItem);
-                    scoreboardManager.setPlayerScoreboard(player);
-                } else {
-                    player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
-                }
+                processJobPurchase(player, 30000, "광부 2차", ChatColor.DARK_PURPLE + "광부 2차로 전직합니다.");
             } else if (displayName.equals("[전직] 광부 3차")) {
-                int cost = 70000;
-                if (moneyManager.getBalance(player) >= cost) {
-                    moneyManager.subtractBalance(player, cost);
-                    player.sendMessage(ChatColor.GREEN + "성공적으로 구매 완료했습니다!");
-
-                    ItemStack customItem = createCustomItem("광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
-                    addCustomItemToPlayer(player, customItem);
-                    scoreboardManager.setPlayerScoreboard(player);
-                } else {
-                    player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
-                }
+                processJobPurchase(player, 70000, "광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
             } else if (displayName.equals("[전직] 광부 4차")) {
-                int cost = 100000;
-                if (moneyManager.getBalance(player) >= cost) {
-                    moneyManager.subtractBalance(player, cost);
-                    player.sendMessage(ChatColor.GREEN + "성공적으로 구매 완료했습니다!");
-
-                    ItemStack customItem = createCustomItem("광부 4차", ChatColor.DARK_PURPLE + "광부 4차로 전직합니다.");
-                    addCustomItemToPlayer(player, customItem);
-                    scoreboardManager.setPlayerScoreboard(player);
-                } else {
-                    player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
-                }
+                processJobPurchase(player, 100000, "광부 4차", ChatColor.DARK_PURPLE + "광부 4차로 전직합니다.");
             }
+        } else if (clickedItem.getType() == Material.NETHERITE_PICKAXE && clickedItem.hasItemMeta()) {
+            guiManager.mineralShop(player);
+        } else if (clickedItem.getType() == Material.PAPER && clickedItem.hasItemMeta()) {
+            boolean clue1Unlocked = plugin.loadClueState(player, "단서1");
+            boolean clue2Unlocked = plugin.loadClueState(player, "단서2");
+            boolean clue3Unlocked = plugin.loadClueState(player, "단서3");
+            guiManager.clues(player, clue1Unlocked, clue2Unlocked, clue3Unlocked);
+        } else {
+            handleMineralSale(player, clickedItem, event.getClick());
         }
-        if (clickedItem.getType() == Material.NETHERITE_PICKAXE && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("광물")) {
-                guiManager.mineralShop(player);
-            }
-        } else if (clickedItem.getType() == Material.COAL && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("석탄")) {
-                handleMineralSale(player, clickedItem, 10, 320, 640, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.COPPER_INGOT && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("구리 주괴")) {
-                handleMineralSale(player, clickedItem, 20, 640, 1280, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.IRON_INGOT && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("철 주괴")) {
-                handleMineralSale(player, clickedItem, 30, 960, 1920, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.GOLD_INGOT && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("금 주괴")) {
-                handleMineralSale(player, clickedItem, 40, 1280, 2560, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.REDSTONE && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("레드스톤 가루")) {
-                handleMineralSale(player, clickedItem, 5, 160, 320, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.LAPIS_LAZULI && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("청금석")) {
-                handleMineralSale(player, clickedItem, 50, 1600, 3200, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.EMERALD && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("에메랄드")) {
-                handleMineralSale(player, clickedItem, 70, 2240, 4480, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.DIAMOND && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("다이아몬드")) {
-                handleMineralSale(player, clickedItem, 90, 2880, 5760, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.AMETHYST_SHARD && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("자수정 조각")) {
-                handleMineralSale(player, clickedItem, 100, 3200, 6400, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.QUARTZ && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("네더 석영")) {
-                handleMineralSale(player, clickedItem, 120, 3840, 7680, event.getClick());
-            }
-        } else if (clickedItem.getType() == Material.NETHERITE_INGOT && clickedItem.hasItemMeta()) {
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            if (displayName.equals("네더라이트 주괴")) {
-                handleMineralSale(player, clickedItem, 150, 4800, 9600, event.getClick());
-            }
-        }
+    }
 
-        // 돌 클릭했을때
-        if (clickedItem.getType() == Material.STONE) {
-            player.sendMessage("You clicked on a Stone!");
+    private void processJobPurchase(Player player, int cost, String jobName, String lore) {
+        if (moneyManager.getBalance(player) >= cost) {
+            moneyManager.subtractBalance(player, cost);
+            player.sendMessage(ChatColor.GREEN + "성공적으로 구매 완료했습니다!");
+
+            ItemStack customItem = createCustomItem(jobName, lore);
+            addCustomItemToPlayer(player, customItem);
+            scoreboardManager.setPlayerScoreboard(player);
+        } else {
+            player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
         }
     }
 
@@ -174,8 +96,7 @@ public class InventoryClickListener implements Listener {
         ItemStack customItem = new ItemStack(Material.ENCHANTED_BOOK);
         ItemMeta meta = customItem.getItemMeta();
         if (meta != null) {
-            String displayName = ChatColor.YELLOW + "" + ChatColor.BOLD + "[전직] " + ChatColor.GRAY + "" + ChatColor.BOLD + name;
-            meta.setDisplayName(displayName);
+            meta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "[전직] " + ChatColor.GRAY + "" + ChatColor.BOLD + name);
             meta.setLore(Collections.singletonList(ChatColor.translateAlternateColorCodes('&', lore)));
             customItem.setItemMeta(meta);
         }
@@ -191,43 +112,123 @@ public class InventoryClickListener implements Listener {
         }
     }
 
-    private void handleMineralSale(Player player, ItemStack clickedItem, int leftClickCost, int middleClickCost, int rightClickCost, ClickType clickType) {
+    private void handleMineralSale(Player player, ItemStack clickedItem, ClickType clickType) {
+        Material material = clickedItem.getType();
+        int leftClickCost = 0, middleClickCost = 0, rightClickCost = 0;
+
+        switch (material) {
+            case COAL:
+                leftClickCost = 10;
+                middleClickCost = 320;
+                rightClickCost = 640;
+                break;
+            case COPPER_INGOT:
+                leftClickCost = 20;
+                middleClickCost = 640;
+                rightClickCost = 1280;
+                break;
+            case IRON_INGOT:
+                leftClickCost = 30;
+                middleClickCost = 960;
+                rightClickCost = 1920;
+                break;
+            case GOLD_INGOT:
+                leftClickCost = 40;
+                middleClickCost = 1280;
+                rightClickCost = 2560;
+                break;
+            case REDSTONE:
+                leftClickCost = 5;
+                middleClickCost = 160;
+                rightClickCost = 320;
+                break;
+            case LAPIS_LAZULI:
+                leftClickCost = 50;
+                middleClickCost = 1600;
+                rightClickCost = 3200;
+                break;
+            case EMERALD:
+                leftClickCost = 70;
+                middleClickCost = 2240;
+                rightClickCost = 4480;
+                break;
+            case DIAMOND:
+                leftClickCost = 90;
+                middleClickCost = 2880;
+                rightClickCost = 5760;
+                break;
+            case AMETHYST_SHARD:
+                leftClickCost = 100;
+                middleClickCost = 3200;
+                rightClickCost = 6400;
+                break;
+            case QUARTZ:
+                leftClickCost = 120;
+                middleClickCost = 3840;
+                rightClickCost = 7680;
+                break;
+            case NETHERITE_INGOT:
+                leftClickCost = 150;
+                middleClickCost = 4800;
+                rightClickCost = 9600;
+                break;
+            default:
+                return;
+        }
+
         int amountToSell = 0;
         int salePrice = 0;
 
-        ItemStack checkItem = new ItemStack(clickedItem.getType());
-
         switch (clickType) {
             case LEFT:
-                if (player.getInventory().containsAtLeast(checkItem, 1)) {
-                    amountToSell = 1;
-                    salePrice = leftClickCost;
-                }
+                amountToSell = 1;
+                salePrice = leftClickCost;
                 break;
             case MIDDLE:
-                if (player.getInventory().containsAtLeast(checkItem, 32)) {
-                    amountToSell = 32;
-                    salePrice = middleClickCost;
-                }
+                amountToSell = 32;
+                salePrice = middleClickCost;
                 break;
             case RIGHT:
-                if (player.getInventory().containsAtLeast(checkItem, 64)) {
-                    amountToSell = 64;
-                    salePrice = rightClickCost;
-                }
+                amountToSell = 64;
+                salePrice = rightClickCost;
                 break;
             default:
-                break;
+                return;
         }
 
-        if (amountToSell > 0) {
+        if (player.getInventory().containsAtLeast(new ItemStack(material), amountToSell)) {
             moneyManager.addBalance(player, salePrice);
-            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            player.sendMessage(ChatColor.GREEN + displayName + " " + amountToSell + "개를 " + salePrice + "원에 판매했습니다.");
-            player.getInventory().removeItem(new ItemStack(checkItem.getType(), amountToSell));
+            player.sendMessage(ChatColor.GREEN + ""+ amountToSell + "개를 " + salePrice + "원에 판매했습니다.");
+            player.getInventory().removeItem(new ItemStack(material, amountToSell));
+            updateSalesCount(player, material, amountToSell);
             scoreboardManager.setPlayerScoreboard(player);
         } else {
-            player.sendMessage(ChatColor.RED + "판매할 " + checkItem.getType().name() + "이(가) 충분하지 않습니다.");
+            player.sendMessage(ChatColor.RED + "판매할 " + material.name() + "이(가) 충분하지 않습니다.");
+        }
+    }
+
+    private void updateSalesCount(Player player, Material material, int amountSold) {
+        Map<Player, Integer> salesMap = null;
+        String clueName = "";
+
+        if (material == Material.COPPER_INGOT) {
+            salesMap = copperSales;
+            clueName = "단서1";
+        } else if (material == Material.LAPIS_LAZULI) {
+            salesMap = lapisSales;
+            clueName = "단서2";
+        } else if (material == Material.QUARTZ) {
+            salesMap = quartzSales;
+            clueName = "단서3";
+        }
+
+        if (salesMap != null) {
+            int currentSales = salesMap.getOrDefault(player, 0) + amountSold;
+            salesMap.put(player, currentSales);
+            if (currentSales >= 100) {
+                player.sendMessage(ChatColor.GREEN + clueName + "이(가) 개방되었습니다!");
+                plugin.saveClueState(player, clueName, true);
+            }
         }
     }
 }

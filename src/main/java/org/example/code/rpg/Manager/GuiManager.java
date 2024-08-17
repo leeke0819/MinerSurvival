@@ -1,26 +1,25 @@
 package org.example.code.rpg.Manager;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.generator.structure.StructureType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.structure.StructureManager;
 import org.example.code.rpg.RPG;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GuiManager {
-    private RPG plugin;
-    public GuiManager(RPG plugin){
+    private final RPG plugin;
+
+    public GuiManager(RPG plugin) {
         this.plugin = plugin;
     }
 
-    public GuiManager() {}
     public void openGui(Player player) {
         Inventory basicsInventory = Bukkit.createInventory(null, 27, "메뉴");
 
@@ -30,57 +29,39 @@ public class GuiManager {
         ItemStack itemStack3 = new ItemStack(Material.PAPER, 1);
         ItemStack itemStack4 = new ItemStack(Material.WRITABLE_BOOK, 1);
 
-        ItemMeta meta1 = itemStack1.getItemMeta();
-        ItemMeta meta2 = itemStack2.getItemMeta();
-        ItemMeta meta3 = itemStack3.getItemMeta();
-        ItemMeta meta4 = itemStack4.getItemMeta();
+        setDisplayName(itemStack1, ChatColor.YELLOW + "" + ChatColor.BOLD + "전직");
+        setDisplayName(itemStack2, ChatColor.GOLD + "" + ChatColor.BOLD + "광물");
+        setDisplayName(itemStack3, ChatColor.GRAY + "" + ChatColor.BOLD + "단서");
+        setDisplayName(itemStack4, ChatColor.GREEN + "" + ChatColor.BOLD + "도움말");
 
-        if (meta1 != null) {
-            meta1.setDisplayName(ChatColor.YELLOW.toString() + ChatColor.BOLD + "전직");
-            meta1.addItemFlags(ItemFlag.HIDE_ATTRIBUTES); // 태그 숨기기
-            itemStack1.setItemMeta(meta1);
-        }
-        if (meta2 != null) {
-            meta2.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "광물");
-            meta2.addEnchant(Enchantment.DURABILITY, 1, true); // 인챈트 부여
-            meta2.addItemFlags(ItemFlag.HIDE_ENCHANTS); // 인챈트 숨기기
-            meta2.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-            itemStack2.setItemMeta(meta2);
-        }
-        if (meta3 != null) {
-            meta3.setDisplayName(ChatColor.GRAY.toString() + ChatColor.BOLD + "단서");
-            meta3.addEnchant(Enchantment.DURABILITY, 1, true); // 인챈트 부여
-            meta3.addItemFlags(ItemFlag.HIDE_ENCHANTS); // 인챈트 숨기기
-            meta3.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-            itemStack3.setItemMeta(meta3);
-        }
-        if (meta4 != null) {
-            meta4.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "도움말");
-            meta4.addEnchant(Enchantment.DURABILITY, 1, true); // 인챈트 부여
-            meta4.addItemFlags(ItemFlag.HIDE_ENCHANTS); // 인챈트 숨기기
-            meta4.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-            itemStack4.setItemMeta(meta4);
-        }
-
-
-        for(int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             basicsInventory.setItem(i, itemStack);
         }
-        basicsInventory.setItem(9, itemStack);
-
         basicsInventory.setItem(10, itemStack1);
         basicsInventory.setItem(12, itemStack2);
         basicsInventory.setItem(14, itemStack3);
         basicsInventory.setItem(16, itemStack4);
-
         basicsInventory.setItem(17, itemStack);
-        for(int i = 18; i < 27; i++) {
+
+        for (int i = 18; i < 27; i++) {
             basicsInventory.setItem(i, itemStack);
         }
+
         player.openInventory(basicsInventory);
     }
 
-    public void jobShop(Player player){
+    private void setDisplayName(ItemStack item, String name) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName(name);
+            meta.addEnchant(Enchantment.DURABILITY, 1, true); // 인챈트 부여
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS); // 인챈트 숨기기
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            item.setItemMeta(meta);
+        }
+    }
+
+    public void jobShop(Player player) {
         Inventory jobShopInventory = Bukkit.createInventory(null, 45, "전직 상점");
 
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
@@ -91,10 +72,9 @@ public class GuiManager {
         ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 70000, "원");
         ItemStack customItem4 = createCustomItemForGUI(player, "광부", "4차", 100000, "원");
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             jobShopInventory.setItem(i, itemStack);
         }
-        jobShopInventory.setItem(9, itemStack);
         jobShopInventory.setItem(17, itemStack);
         jobShopInventory.setItem(18, itemStack);
 
@@ -162,10 +142,9 @@ public class GuiManager {
         setItemMeta(itemStack10, "네더 석영", 120, 3840, 7680);
         setItemMeta(itemStack11, "네더라이트 주괴", 150, 4800, 9600);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             mineralShopInventory.setItem(i, itemStack);
         }
-        mineralShopInventory.setItem(9, itemStack);
         mineralShopInventory.setItem(10, itemStack1);
         mineralShopInventory.setItem(12, itemStack2);
         mineralShopInventory.setItem(14, itemStack3);
@@ -207,5 +186,57 @@ public class GuiManager {
         lore.add(ChatColor.RESET + "" + ChatColor.YELLOW + "" + ChatColor.BOLD + " [마우스 휠클릭] " + ChatColor.RESET + "" + ChatColor.YELLOW + "32개 판매 : " + middleClickCost + "원 ");
         lore.add(ChatColor.RESET + "" + ChatColor.YELLOW + "" + ChatColor.BOLD + " [마우스 우클릭] " + ChatColor.RESET + "" + ChatColor.YELLOW + "64개 판매 : " + rightClickCost + "원 ");
         return lore;
+    }
+
+    public void clues(Player player, boolean clue1Unlocked, boolean clue2Unlocked, boolean clue3Unlocked) {
+        Inventory cluesInventory = Bukkit.createInventory(null, 27, "해결 단서");
+
+        ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
+        ItemStack itemStack1 = new ItemStack(Material.PAPER, 1);
+        ItemStack itemStack2 = new ItemStack(Material.PAPER, 1);
+        ItemStack itemStack3 = new ItemStack(Material.PAPER, 1);
+
+        ItemMeta meta1 = itemStack1.getItemMeta();
+        ItemMeta meta2 = itemStack2.getItemMeta();
+        ItemMeta meta3 = itemStack3.getItemMeta();
+
+        if (clue1Unlocked && meta1 != null) {
+            meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
+            meta1.setLore(Arrays.asList(
+                    ChatColor.DARK_AQUA + "제단이 생성되는 바이옴은 아래와 같습니다.",
+                    ChatColor.DARK_PURPLE + "- 늪",
+                    ChatColor.DARK_PURPLE + "- 정글",
+                    ChatColor.DARK_PURPLE + "- 나무가 우거진 악지",
+                    ChatColor.DARK_PURPLE + "- 소나무 원시 타이가",
+                    ChatColor.DARK_PURPLE + "- 가문비나무 원시 타이가"
+            ));
+            itemStack1.setItemMeta(meta1);
+        }
+
+        if (clue2Unlocked && meta2 != null) {
+            meta2.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서2");
+            meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 (x좌표값) 입니다."));
+            itemStack2.setItemMeta(meta2);
+        }
+
+        if (clue3Unlocked && meta3 != null) {
+            meta3.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서3");
+            meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 (z좌표값) 입니다."));
+            itemStack3.setItemMeta(meta3);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            cluesInventory.setItem(i, itemStack);
+        }
+        cluesInventory.setItem(11, clue1Unlocked ? itemStack1 : itemStack);
+        cluesInventory.setItem(13, clue2Unlocked ? itemStack2 : itemStack);
+        cluesInventory.setItem(15, clue3Unlocked ? itemStack3 : itemStack);
+        cluesInventory.setItem(17, itemStack);
+
+        for (int i = 18; i < 27; i++) {
+            cluesInventory.setItem(i, itemStack);
+        }
+
+        player.openInventory(cluesInventory);
     }
 }

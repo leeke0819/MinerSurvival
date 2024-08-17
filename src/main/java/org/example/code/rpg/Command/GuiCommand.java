@@ -22,7 +22,7 @@ public class GuiCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        GuiManager guiManager = new GuiManager();
+        GuiManager guiManager = new GuiManager(plugin);
         guiManager.openGui(player);
         return true;
     }

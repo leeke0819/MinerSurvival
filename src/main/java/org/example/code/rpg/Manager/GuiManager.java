@@ -204,11 +204,14 @@ public class GuiManager {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
             meta1.setLore(Arrays.asList(
                     ChatColor.DARK_AQUA + "제단이 생성되는 바이옴은 아래와 같습니다.",
-                    ChatColor.DARK_PURPLE + "- 늪",
-                    ChatColor.DARK_PURPLE + "- 정글",
-                    ChatColor.DARK_PURPLE + "- 나무가 우거진 악지",
-                    ChatColor.DARK_PURPLE + "- 소나무 원시 타이가",
-                    ChatColor.DARK_PURPLE + "- 가문비나무 원시 타이가"
+                    ChatColor.DARK_PURPLE + "- 늪(swamp)",
+                    ChatColor.DARK_PURPLE + "- 정글(jungle)",
+                    ChatColor.DARK_PURPLE + "- 어두운 숲(dark_forest)",
+                    ChatColor.DARK_PURPLE + "- 맹그로브 늪(mangrove_swamp)",
+                    ChatColor.DARK_PURPLE + "- 침식된 악지(eroded_badlands)",
+                    ChatColor.DARK_PURPLE + "- 나무가 우거진 악지(wooded_badlands)",
+                    ChatColor.DARK_PURPLE + "- 소나무 원시 타이가(old_growth_pine_taiga)",
+                    ChatColor.DARK_PURPLE + "- 가문비나무 원시 타이가(old_growth_spruce_taiga)"
             ));
             itemStack1.setItemMeta(meta1);
         }

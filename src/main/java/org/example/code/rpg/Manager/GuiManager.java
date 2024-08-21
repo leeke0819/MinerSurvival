@@ -195,45 +195,48 @@ public class GuiManager {
         ItemStack itemStack1 = new ItemStack(Material.PAPER, 1);
         ItemStack itemStack2 = new ItemStack(Material.PAPER, 1);
         ItemStack itemStack3 = new ItemStack(Material.PAPER, 1);
+        ItemStack itemStack4 = new ItemStack(Material.NETHER_STAR, 1);
 
         ItemMeta meta1 = itemStack1.getItemMeta();
         ItemMeta meta2 = itemStack2.getItemMeta();
         ItemMeta meta3 = itemStack3.getItemMeta();
+        ItemMeta meta4 = itemStack4.getItemMeta();
 
         if (clue1Unlocked && meta1 != null) {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
-            meta1.setLore(Arrays.asList(
-                    ChatColor.DARK_AQUA + "제단이 생성되는 바이옴은 아래와 같습니다.",
-                    ChatColor.DARK_PURPLE + "- 늪(swamp)",
-                    ChatColor.DARK_PURPLE + "- 정글(jungle)",
-                    ChatColor.DARK_PURPLE + "- 어두운 숲(dark_forest)",
-                    ChatColor.DARK_PURPLE + "- 맹그로브 늪(mangrove_swamp)",
-                    ChatColor.DARK_PURPLE + "- 침식된 악지(eroded_badlands)",
-                    ChatColor.DARK_PURPLE + "- 나무가 우거진 악지(wooded_badlands)",
-                    ChatColor.DARK_PURPLE + "- 소나무 원시 타이가(old_growth_pine_taiga)",
-                    ChatColor.DARK_PURPLE + "- 가문비나무 원시 타이가(old_growth_spruce_taiga)"
-            ));
+            meta1.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "제단은 월드 스폰 좌표 기준으로 ±3000 좌표 이내에 있습니다."));
             itemStack1.setItemMeta(meta1);
         }
 
         if (clue2Unlocked && meta2 != null) {
             meta2.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서2");
-            meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 (x좌표값) 입니다."));
+            int xCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.x", 0);
+            meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 " + xCoordinate + "입니다."));
             itemStack2.setItemMeta(meta2);
         }
 
         if (clue3Unlocked && meta3 != null) {
             meta3.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서3");
-            meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 (z좌표값) 입니다."));
+            int zCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.z", 0);
+            meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 " + zCoordinate + "입니다."));
             itemStack3.setItemMeta(meta3);
+        }
+
+        if (meta4 != null) {
+            meta4.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "미개방");
+            meta4.addEnchant(Enchantment.DURABILITY, 1, true); // 인챈트 부여
+            meta4.addItemFlags(ItemFlag.HIDE_ENCHANTS); // 인챈트 숨기기
+            meta4.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            meta4.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "특정 판매 조건을 완료하면 단서가 개방됩니다."));
+            itemStack4.setItemMeta(meta4);
         }
 
         for (int i = 0; i < 10; i++) {
             cluesInventory.setItem(i, itemStack);
         }
-        cluesInventory.setItem(11, clue1Unlocked ? itemStack1 : itemStack);
-        cluesInventory.setItem(13, clue2Unlocked ? itemStack2 : itemStack);
-        cluesInventory.setItem(15, clue3Unlocked ? itemStack3 : itemStack);
+        cluesInventory.setItem(11, clue1Unlocked ? itemStack1 : itemStack4);
+        cluesInventory.setItem(13, clue2Unlocked ? itemStack2 : itemStack4);
+        cluesInventory.setItem(15, clue3Unlocked ? itemStack3 : itemStack4);
         cluesInventory.setItem(17, itemStack);
 
         for (int i = 18; i < 27; i++) {

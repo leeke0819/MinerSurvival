@@ -45,7 +45,8 @@ public final class RPG extends JavaPlugin {
         moneyManager = new MoneyManager(this);
         scoreboardManager = new PlayerScoreboardManager(this);
         nameChangeManager = new NameChangeManager(this);
-
+        BeaconOfferingListener beaconOfferingListener = new BeaconOfferingListener(this);
+        WorldInitListener worldInitListener = new WorldInitListener(this, beaconOfferingListener);
 
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this, playerBossBars, playerO2), this);
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(this, playerBossBars, playerO2), this);
@@ -57,7 +58,8 @@ public final class RPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RenameAnvilListener(), this);
         getServer().getPluginManager().registerEvents(new NameChangeListener(this), this);
         getServer().getPluginManager().registerEvents(new UnableInstallBedListener(), this);
-        getServer().getPluginManager().registerEvents(new WorldInitListener(this), this);
+        getServer().getPluginManager().registerEvents(worldInitListener, this);
+        getServer().getPluginManager().registerEvents(beaconOfferingListener, this);
         getServer().getPluginManager().registerEvents(nameChangeManager, this);
 
 

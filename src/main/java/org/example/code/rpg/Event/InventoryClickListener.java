@@ -48,6 +48,13 @@ public class InventoryClickListener implements Listener {
             return;
         }
 
+        // Shift + 좌클릭 감지
+        if (event.isShiftClick()) {
+            event.setCancelled(true);
+            player.sendMessage("이 GUI에서는 Shift + 좌클릭을 할 수 없습니다.");
+            return;
+        }
+
         event.setCancelled(true);
 
         if (clickedItem == null || clickedItem.getType() == Material.AIR) {

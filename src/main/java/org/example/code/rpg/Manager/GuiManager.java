@@ -32,7 +32,7 @@ public class GuiManager {
         setDisplayName(itemStack1, ChatColor.YELLOW + "" + ChatColor.BOLD + "전직");
         setDisplayName(itemStack2, ChatColor.GOLD + "" + ChatColor.BOLD + "광물");
         setDisplayName(itemStack3, ChatColor.GRAY + "" + ChatColor.BOLD + "단서");
-        setDisplayName(itemStack4, ChatColor.GREEN + "" + ChatColor.BOLD + "도움말");
+        setDisplayName(itemStack4, ChatColor.GREEN + "" + ChatColor.BOLD + "/도움말");
 
         for (int i = 0; i < 10; i++) {
             basicsInventory.setItem(i, itemStack);
@@ -205,6 +205,7 @@ public class GuiManager {
         if (clue1Unlocked && meta1 != null) {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
             meta1.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "제단은 월드 스폰 좌표 기준으로 ±3000 좌표 이내에 있습니다."));
+            meta1.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
             itemStack1.setItemMeta(meta1);
         }
 
@@ -212,6 +213,7 @@ public class GuiManager {
             meta2.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서2");
             int xCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.x", 0);
             meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 " + xCoordinate + "입니다."));
+            meta2.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
             itemStack2.setItemMeta(meta2);
         }
 
@@ -219,6 +221,7 @@ public class GuiManager {
             meta3.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서3");
             int zCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.z", 0);
             meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 " + zCoordinate + "입니다."));
+            meta3.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
             itemStack3.setItemMeta(meta3);
         }
 

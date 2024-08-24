@@ -204,26 +204,33 @@ public class GuiManager {
 
         if (clue1Unlocked && meta1 != null) {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
-            meta1.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "제단은 월드 스폰 좌표 기준으로 ±3000 좌표 이내에 있습니다."));
-            meta1.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
+            List<String> lore1 = new ArrayList<>();
+            lore1.add(ChatColor.DARK_PURPLE + "제단은 월드 스폰 좌표 기준으로 ±3000 좌표 이내에 있습니다.");
+            lore1.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            meta1.setLore(lore1);
             itemStack1.setItemMeta(meta1);
         }
 
         if (clue2Unlocked && meta2 != null) {
             meta2.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서2");
             int xCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.x", 0);
-            meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 " + xCoordinate + "입니다."));
-            meta2.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
+            List<String> lore2 = new ArrayList<>();
+            lore2.add(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 " + xCoordinate + "입니다.");
+            lore2.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            meta2.setLore(lore2);
             itemStack2.setItemMeta(meta2);
         }
 
         if (clue3Unlocked && meta3 != null) {
             meta3.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서3");
             int zCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.z", 0);
-            meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 " + zCoordinate + "입니다."));
-            meta3.setLore(Collections.singletonList(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다."));
+            List<String> lore3 = new ArrayList<>();
+            lore3.add(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 " + zCoordinate + "입니다.");
+            lore3.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            meta3.setLore(lore3);
             itemStack3.setItemMeta(meta3);
         }
+
 
         if (meta4 != null) {
             meta4.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD + "미개방");

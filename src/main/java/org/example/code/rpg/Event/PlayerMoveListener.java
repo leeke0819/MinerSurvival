@@ -50,6 +50,7 @@ public class PlayerMoveListener implements Listener {
 
         double y = player.getLocation().getY();
         if (y < 60) {
+            // 지하에 있을 때
             if (bossBar != null) {
                 bossBar.setVisible(true);
                 bossBar.setTitle("산소 고갈까지 남은 시간 : " + formatTime(remainingTime));
@@ -65,24 +66,23 @@ public class PlayerMoveListener implements Listener {
                     public void run() {
                         BossBar currentBossBar = playerBossBars.get(playerId);
                         if (player.isOnline() && player.getLocation().getY() < 60) {
-                            Double timeLeftObj = playerO2.get(playerId); // 플레이어의 남은 산소 시간을 timeLeft로 가져오기
+                            Double timeLeftObj = playerO2.get(playerId);
                             if (timeLeftObj == null) {
                                 timeLeftObj = initialTime;
                             }
                             double timeLeft = timeLeftObj;
                             if (timeLeft <= 0) {
-                                player.damage(5); // 플레이어 죽이기
+                                player.damage(5);
                                 if(player.getGameMode() == GameMode.CREATIVE) {
                                     player.setHealth(0);
                                 }
-                                // 보스바가 null이 아니라면
                                 if (currentBossBar != null) {
-                                    currentBossBar.setVisible(false); // 보스바 숨기기
+                                    currentBossBar.setVisible(false);
                                 }
-                                this.cancel(); // 타이머 작업 취소
-                                activeTimers.remove(playerId); // 플레이어의 타이머 제거
+                                this.cancel();
+                                activeTimers.remove(playerId);
                             } else {
-                                timeLeft -= 1.0; // 플레이어의 남은 산소 시간 1초씩 감소
+                                timeLeft -= 1.0;
 
                                 if (timeLeft > maxTime) {
                                     player.sendMessage("광석으로 늘릴 수 있는 최대 시간은 30분 입니다.");
@@ -102,8 +102,7 @@ public class PlayerMoveListener implements Listener {
                             if (currentBossBar != null) {
                                 currentBossBar.setVisible(false);
                             }
-                            playerO2.put(playerId, initialTime); // 지상에 있을 때 시간 초기화
-                            this.cancel();
+                            this.cancel(); // 지상에 있을 때 타이머를 멈추지만 초기화하지 않음
                             activeTimers.remove(playerId);
                         }
                     }
@@ -112,13 +111,13 @@ public class PlayerMoveListener implements Listener {
                 activeTimers.put(playerId, timer);
             }
         } else {
+            // 지상에 있을 때
             if (bossBar != null) {
                 bossBar.setVisible(false);
             }
-            playerO2.put(playerId, initialTime); // 지상에 있을 때 시간 초기화
 
             if (activeTimers.containsKey(playerId)) {
-                activeTimers.get(playerId).cancel();
+                activeTimers.get(playerId).cancel(); // 타이머를 멈추기만 하고 초기화하지 않음
                 activeTimers.remove(playerId);
             }
         }

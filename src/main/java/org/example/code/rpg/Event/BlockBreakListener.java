@@ -1,12 +1,16 @@
 package org.example.code.rpg.Event;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -32,6 +36,35 @@ public class BlockBreakListener implements Listener {
     );
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 
+    // 플레이어가 배치한 블록의 위치를 추적하기 위한 Set
+    private final Set<Location> playerPlacedBlocks = new HashSet<>();
+
+    // 한글 이름 맵 생성
+    private static final Map<Material, String> materialToKoreanNameMap = new HashMap<>();
+
+    static {
+        materialToKoreanNameMap.put(Material.COPPER_ORE, "구리 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_COPPER_ORE, "심층암 구리 광석");
+        materialToKoreanNameMap.put(Material.IRON_ORE, "철 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_IRON_ORE, "심층암 철 광석");
+        materialToKoreanNameMap.put(Material.GOLD_ORE, "금 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_GOLD_ORE, "심층암 금 광석");
+        materialToKoreanNameMap.put(Material.NETHER_GOLD_ORE, "네더 금 광석");
+        materialToKoreanNameMap.put(Material.ANCIENT_DEBRIS, "고대 잔해");
+        materialToKoreanNameMap.put(Material.COAL_ORE, "석탄 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_COAL_ORE, "심층암 석탄 광석");
+        materialToKoreanNameMap.put(Material.REDSTONE_ORE, "레드스톤 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_REDSTONE_ORE, "심층암 레드스톤 광석");
+        materialToKoreanNameMap.put(Material.LAPIS_ORE, "청금석 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_LAPIS_ORE, "심층암 청금석 광석");
+        materialToKoreanNameMap.put(Material.EMERALD_ORE, "에메랄드 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_EMERALD_ORE, "심층암 에메랄드 광석");
+        materialToKoreanNameMap.put(Material.DIAMOND_ORE, "다이아몬드 광석");
+        materialToKoreanNameMap.put(Material.DEEPSLATE_DIAMOND_ORE, "심층암 다이아몬드 광석");
+        materialToKoreanNameMap.put(Material.AMETHYST_CLUSTER, "자수정 군집");
+        materialToKoreanNameMap.put(Material.NETHER_QUARTZ_ORE, "네더 석영 광석");
+    }
+
     public BlockBreakListener(RPG plugin, Map<UUID, Double> playerO2) {
         this.plugin = plugin;
         this.playerO2 = playerO2;
@@ -42,6 +75,14 @@ public class BlockBreakListener implements Listener {
         Player player = event.getPlayer();
         Block block = event.getBlock();
         Material blockType = block.getType();
+        Location blockLocation = block.getLocation();
+
+        // 블록이 자연 생성된 것인지 확인
+        if (playerPlacedBlocks.contains(blockLocation)) {
+            // 플레이어가 배치한 블록이면 추가 효과를 적용하지 않음
+            player.sendMessage(ChatColor.RED + "이 블록은 자연 생성된 것이 아니므로 효과가 적용되지 않습니다.");
+            return;
+        }
 
         JobConfigManager jobConfigManager = new JobConfigManager(plugin);
         String[] jobData = jobConfigManager.getPlayerJob(player).split(",");
@@ -51,6 +92,12 @@ public class BlockBreakListener implements Listener {
         handleOreDrops(event, player, blockType);
         handleJobEffects(player, blockType, job, level);
         handleOxygenRecovery(player, blockType);
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        // 플레이어가 블록을 배치할 때 해당 위치를 추적
+        playerPlacedBlocks.add(event.getBlock().getLocation());
     }
 
     private void handleOreDrops(BlockBreakEvent event, Player player, Material blockType) {
@@ -67,6 +114,10 @@ public class BlockBreakListener implements Listener {
         if (oreToIngotMap.containsKey(blockType)) {
             event.setDropItems(false);
             event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), oreToIngotMap.get(blockType));
+
+            // 한글 이름 사용하여 메시지 출력
+            String koreanName = materialToKoreanNameMap.getOrDefault(blockType, blockType.name());
+            player.sendMessage(ChatColor.GREEN + koreanName + ChatColor.YELLOW + "을(를) 캐서 아이템을 획득했습니다.");
         }
     }
 
@@ -98,7 +149,8 @@ public class BlockBreakListener implements Listener {
 
         if (bonusItems.containsKey(blockType) && Math.random() * 100 < bonusChance) {
             player.getInventory().addItem(bonusItems.get(blockType));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e" + bonusItems.get(blockType).getType().name() + "&a을 &e5개&a 더 얻었습니다!"));
+            String koreanName = materialToKoreanNameMap.getOrDefault(blockType, blockType.name());
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e" + koreanName + "&a을 &e5개&a 더 얻었습니다!"));
         }
 
         if (trackedBlocks.contains(blockType)) {
@@ -160,9 +212,12 @@ public class BlockBreakListener implements Listener {
         oxygenRecoveryMap.put(Material.ANCIENT_DEBRIS, 300.0);
 
         if (oxygenRecoveryMap.containsKey(blockType)) {
-            double newOxygenTime = playerO2.get(player.getUniqueId()) + oxygenRecoveryMap.get(blockType);
+            double newOxygenTime = playerO2.getOrDefault(player.getUniqueId(), 0.0) + oxygenRecoveryMap.get(blockType);
             playerO2.put(player.getUniqueId(), newOxygenTime);
-            player.sendMessage(blockType.name() + "을(를) 부숴서 산소 에너지가 " + oxygenRecoveryMap.get(blockType) + "(초)만큼 더 높아졌습니다!");
+
+            String koreanName = materialToKoreanNameMap.getOrDefault(blockType, blockType.name());
+            String message = ChatColor.GREEN + koreanName + ChatColor.RESET + "을(를) 부숴서 산소 에너지가 " + ChatColor.GREEN + oxygenRecoveryMap.get(blockType) + "(초)" + ChatColor.RESET + "만큼 더 높아졌습니다!";
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
         }
     }
 }

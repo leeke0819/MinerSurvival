@@ -40,7 +40,7 @@ public class NameChangeManager implements Listener {
                 config.set("users." + player.getUniqueId().toString() + ".name", newName);
                 plugin.saveConfig();
 
-                player.sendMessage(ChatColor.GREEN + "이름이 성공적으로 " + newName + "(으)로 변경되었습니다!");
+                player.sendMessage(ChatColor.GREEN + "이름이 성공적으로 " + ChatColor.YELLOW + newName + ChatColor.GREEN + "(으)로 변경되었습니다!");
 
                 // 스코어보드 업데이트
                 plugin.getScoreboardManager().setPlayerScoreboard(player);

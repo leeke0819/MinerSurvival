@@ -29,6 +29,13 @@ public class NameChangeTokenCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        // 플레이어가 OP인지 확인
+        if (!player.isOp()) {
+            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다.");
+            return true;
+        }
+
         ItemStack nameChangeToken = createNameChangeToken();
         player.getInventory().addItem(nameChangeToken);
         player.sendMessage(ChatColor.GREEN + "이름 변경권을 받았습니다!");

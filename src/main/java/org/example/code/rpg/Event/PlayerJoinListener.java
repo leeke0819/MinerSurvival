@@ -68,7 +68,7 @@ public class PlayerJoinListener implements Listener {
         if (!player.hasPlayedBefore()) {
             player.sendMessage("서버에 들어오신 걸 환영합니다!");
             moneyManager.setBalance(event.getPlayer(), 1000); // 처음 접속할 때 1000원 지급
-            plugin.getJobConfig().jobCreate(player, "직업 없음", ""); // 직업, 직업 레벨 기본값 설정
+            plugin.getJobConfig().jobCreate(player, "직업 없음", " "); // 직업, 직업 레벨 기본값 설정
             giveNameChangeTicket(player);
         }
 

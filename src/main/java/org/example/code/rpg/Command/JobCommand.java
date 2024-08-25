@@ -30,9 +30,16 @@ public class JobCommand implements CommandExecutor {
         if (args == null) {
             sender.sendMessage(ChatColor.RED + "전직할 직업과 전직 레벨을 입력해주세요.");
         }
+
+        Player player = (Player) sender;
+
+        // 플레이어가 OP인지 확인
+        if (!player.isOp()) {
+            player.sendMessage(ChatColor.RED + "이 명령어를 사용할 권한이 없습니다.");
+            return true;
+        }
         String command2 = command.getName();
         String job = args[0];
-        Player player = (Player) sender;
         JobConfigManager jobConfigManager = new JobConfigManager(plugin);
         jobConfigManager.createCustomItem(player, command2, job);
         return true;

@@ -206,7 +206,7 @@ public class GuiManager {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
             List<String> lore1 = new ArrayList<>();
             lore1.add(ChatColor.DARK_PURPLE + "제단은 월드 스폰 좌표 기준으로 ±3000 좌표 이내에 있습니다.");
-            lore1.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            lore1.add(ChatColor.RED + "모든 단서를 개방해야 제단에 공양할 수 있습니다.");
             meta1.setLore(lore1);
             itemStack1.setItemMeta(meta1);
         }
@@ -216,7 +216,7 @@ public class GuiManager {
             int xCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.x", 0);
             List<String> lore2 = new ArrayList<>();
             lore2.add(ChatColor.DARK_PURPLE + "가장 가까운 제단의 x좌표는 " + xCoordinate + "입니다.");
-            lore2.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            lore2.add(ChatColor.RED + "모든 단서를 개방해야 제단에 공양할 수 있습니다.");
             meta2.setLore(lore2);
             itemStack2.setItemMeta(meta2);
         }
@@ -226,7 +226,7 @@ public class GuiManager {
             int zCoordinate = plugin.getConfig().getInt("structures.ancient_altar.nearest.z", 0);
             List<String> lore3 = new ArrayList<>();
             lore3.add(ChatColor.DARK_PURPLE + "가장 가까운 제단의 z좌표는 " + zCoordinate + "입니다.");
-            lore3.add(ChatColor.RED + "모든 단서를 개방해야 제단이 생성됩니다.");
+            lore3.add(ChatColor.RED + "모든 단서를 개방해야 제단에 공양할 수 있습니다.");
             meta3.setLore(lore3);
             itemStack3.setItemMeta(meta3);
         }

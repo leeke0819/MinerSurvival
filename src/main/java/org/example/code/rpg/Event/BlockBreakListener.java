@@ -28,11 +28,12 @@ public class BlockBreakListener implements Listener {
     private final List<Material> trackedBlocks = Arrays.asList(
             Material.STONE, Material.COBBLESTONE, Material.MOSSY_COBBLESTONE, Material.GRANITE,
             Material.DIORITE, Material.ANDESITE, Material.DEEPSLATE, Material.COBBLED_DEEPSLATE,
-            Material.REINFORCED_DEEPSLATE, Material.TUFF, Material.COAL_ORE, Material.IRON_ORE,
-            Material.COPPER_ORE, Material.GOLD_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE,
-            Material.EMERALD_ORE, Material.DIAMOND_ORE, Material.RAW_IRON_BLOCK, Material.RAW_GOLD_BLOCK,
+            Material.REINFORCED_DEEPSLATE, Material.TUFF, Material.DEEPSLATE_GOLD_ORE, Material.DEEPSLATE_IRON_ORE, Material.COAL_ORE,
+            Material.IRON_ORE, Material.DEEPSLATE_COAL_ORE, Material.DEEPSLATE_REDSTONE_ORE, Material.DEEPSLATE_LAPIS_ORE,
+            Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE, Material.GOLD_ORE, Material.REDSTONE_ORE, Material.LAPIS_ORE,
+            Material.EMERALD_ORE, Material.DIAMOND_ORE, Material.RAW_IRON_BLOCK, Material.RAW_GOLD_BLOCK, Material.DEEPSLATE_EMERALD_ORE,
             Material.RAW_COPPER_BLOCK, Material.NETHERRACK, Material.NETHER_GOLD_ORE, Material.NETHER_QUARTZ_ORE,
-            Material.ANCIENT_DEBRIS, Material.AMETHYST_CLUSTER
+            Material.ANCIENT_DEBRIS, Material.AMETHYST_CLUSTER, Material.DEEPSLATE_DIAMOND_ORE
     );
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 

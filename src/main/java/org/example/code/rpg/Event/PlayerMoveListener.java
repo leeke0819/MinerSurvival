@@ -23,6 +23,7 @@ public class PlayerMoveListener implements Listener {
     private HashMap<UUID, BossBar> playerBossBars;
     private Map<UUID, Double> playerO2;
     private Map<UUID, BukkitRunnable> activeTimers;
+    private Map<UUID, Long> lastMessageTime; // 마지막 메시지 시간을 기록하는 맵
     private final double initialTime = 600.0;
     private final double maxTime = 1800.0; // 최대 시간
     private RPG plugin;
@@ -32,6 +33,7 @@ public class PlayerMoveListener implements Listener {
         this.playerBossBars = playerBossBars;
         this.playerO2 = playerO2;
         this.activeTimers = new HashMap<>();
+        this.lastMessageTime = new HashMap<>(); // 초기화
     }
 
     @EventHandler
@@ -43,7 +45,15 @@ public class PlayerMoveListener implements Listener {
 
         // 광석으로 늘릴 수 있는 최대 시간 제한
         if (remainingTime > maxTime) {
-            player.sendMessage("광석으로 늘릴 수 있는 최대 시간은 30분 입니다.");
+            long currentTime = System.currentTimeMillis();
+            long lastTime = lastMessageTime.getOrDefault(playerId, 0L);
+
+            // 10초 이내에 동일한 메시지를 보내지 않도록 설정
+            if ((currentTime - lastTime) >= 10000) {
+                player.sendMessage("광석으로 늘릴 수 있는 최대 시간은 30분 입니다.");
+                lastMessageTime.put(playerId, currentTime); // 마지막 메시지 시간 업데이트
+            }
+
             remainingTime = maxTime;
             playerO2.put(playerId, remainingTime);
         }
@@ -85,7 +95,15 @@ public class PlayerMoveListener implements Listener {
                                 timeLeft -= 1.0;
 
                                 if (timeLeft > maxTime) {
-                                    player.sendMessage("광석으로 늘릴 수 있는 최대 시간은 30분 입니다.");
+                                    long currentTime = System.currentTimeMillis();
+                                    long lastTime = lastMessageTime.getOrDefault(playerId, 0L);
+
+                                    // 10초 이내에 동일한 메시지를 보내지 않도록 설정
+                                    if ((currentTime - lastTime) >= 10000) {
+                                        player.sendMessage("광석으로 늘릴 수 있는 최대 시간은 30분 입니다.");
+                                        lastMessageTime.put(playerId, currentTime); // 마지막 메시지 시간 업데이트
+                                    }
+
                                     timeLeft = maxTime;
                                 }
 

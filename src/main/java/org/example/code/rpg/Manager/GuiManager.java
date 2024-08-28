@@ -67,9 +67,9 @@ public class GuiManager {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
 
         JobConfigManager jobConfigManager = plugin.getJobConfig();
-        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 5000, "원");
-        ItemStack customItem2 = createCustomItemForGUI(player, "광부", "2차", 30000, "원");
-        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 65000, "원");
+        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 10000, "원");
+        ItemStack customItem2 = createCustomItemForGUI(player, "광부", "2차", 40000, "원");
+        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 70000, "원");
         ItemStack customItem4 = createCustomItemForGUI(player, "광부", "4차", 100000, "원");
 
         for (int i = 0; i < 10; i++) {

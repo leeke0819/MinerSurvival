@@ -66,7 +66,7 @@ public class PlayerJoinListener implements Listener {
 
         // 플레이어가 이전에 접속한 적이 있는지 확인 -> hasPlayedBefore() 메서드
         if (!player.hasPlayedBefore()) {
-            player.sendMessage("서버에 들어오신 걸 환영합니다!");
+            player.sendMessage("서버에 들어오신 걸 환영합니다! '/도움말'을 통해 명령어를 확인할 수 있습니다!");
             moneyManager.setBalance(event.getPlayer(), 1000); // 처음 접속할 때 1000원 지급
             plugin.getJobConfig().jobCreate(player, "직업 없음", " "); // 직업, 직업 레벨 기본값 설정
             giveNameChangeTicket(player);

@@ -117,7 +117,7 @@ public class InventoryClickListener implements Listener {
                 guiManager.jobShop(player);
             } else if (displayName.equals("[전직] 광부 1차")) {
                 if (job.equals("직업 없음") && level.equals(" ")) {
-                    processJobPurchase(player, 10000, "광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
+                    processJobPurchase(player, 5000, "광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "당신은 이미 직업을 가지고 있습니다.");
                 }
@@ -129,7 +129,7 @@ public class InventoryClickListener implements Listener {
                 }
             } else if (displayName.equals("[전직] 광부 3차")) {
                 if (job.equals("§7§l광부") && level.equals("2차")) {
-                    processJobPurchase(player, 70000, "광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
+                    processJobPurchase(player, 65000, "광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "이 전직책을 구매하려면 '광부 2차' 이어야 합니다.");
                 }
@@ -191,59 +191,59 @@ public class InventoryClickListener implements Listener {
 
         switch (material) {
             case COAL:
-                leftClickCost = 10;
-                middleClickCost = 320;
-                rightClickCost = 640;
-                break;
-            case COPPER_INGOT:
-                leftClickCost = 20;
-                middleClickCost = 640;
-                rightClickCost = 1280;
-                break;
-            case IRON_INGOT:
                 leftClickCost = 30;
                 middleClickCost = 960;
                 rightClickCost = 1920;
                 break;
-            case GOLD_INGOT:
+            case COPPER_INGOT:
                 leftClickCost = 40;
                 middleClickCost = 1280;
                 rightClickCost = 2560;
                 break;
-            case REDSTONE:
-                leftClickCost = 5;
-                middleClickCost = 160;
-                rightClickCost = 320;
-                break;
-            case LAPIS_LAZULI:
+            case IRON_INGOT:
                 leftClickCost = 50;
                 middleClickCost = 1600;
                 rightClickCost = 3200;
                 break;
-            case EMERALD:
-                leftClickCost = 70;
-                middleClickCost = 2240;
-                rightClickCost = 4480;
+            case GOLD_INGOT:
+                leftClickCost = 60;
+                middleClickCost = 1920;
+                rightClickCost = 3840;
                 break;
-            case DIAMOND:
+            case REDSTONE:
+                leftClickCost = 20;
+                middleClickCost = 640;
+                rightClickCost = 1280;
+                break;
+            case LAPIS_LAZULI:
+                leftClickCost = 80;
+                middleClickCost = 2560;
+                rightClickCost = 5120;
+                break;
+            case EMERALD:
                 leftClickCost = 90;
                 middleClickCost = 2880;
                 rightClickCost = 5760;
                 break;
-            case AMETHYST_SHARD:
+            case DIAMOND:
                 leftClickCost = 100;
                 middleClickCost = 3200;
                 rightClickCost = 6400;
                 break;
-            case QUARTZ:
+            case AMETHYST_SHARD:
                 leftClickCost = 120;
                 middleClickCost = 3840;
                 rightClickCost = 7680;
                 break;
-            case NETHERITE_INGOT:
+            case QUARTZ:
                 leftClickCost = 150;
                 middleClickCost = 4800;
                 rightClickCost = 9600;
+                break;
+            case NETHERITE_INGOT:
+                leftClickCost = 250;
+                middleClickCost = 8000;
+                rightClickCost = 16000;
                 break;
             default:
                 return;

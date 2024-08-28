@@ -77,8 +77,8 @@ public class BlockBreakListener implements Listener {
         Material blockType = block.getType();
         Location blockLocation = block.getLocation();
 
-        // 블록이 자연 생성된 것인지 확인
-        if (playerPlacedBlocks.contains(blockLocation)) {
+        // 만약 블록이 trackedBlocks에 포함되어 있다면 플레이어가 배치한 블록인지 확인
+        if (trackedBlocks.contains(blockType) && playerPlacedBlocks.contains(blockLocation)) {
             // 플레이어가 배치한 블록이면 추가 효과를 적용하지 않음
             player.sendMessage(ChatColor.RED + "이 블록은 자연 생성된 것이 아니므로 효과가 적용되지 않습니다.");
             return;
@@ -111,6 +111,39 @@ public class BlockBreakListener implements Listener {
         oreToIngotMap.put(Material.NETHER_GOLD_ORE, new ItemStack(Material.GOLD_INGOT));
         oreToIngotMap.put(Material.ANCIENT_DEBRIS, new ItemStack(Material.NETHERITE_INGOT));
 
+        // 블록을 부순 도구를 확인
+        ItemStack tool = player.getInventory().getItemInMainHand();
+
+        // 각 블록에 필요한 곡괭이 레벨을 지정
+        Map<Material, Integer> blockToRequiredPickaxeLevel = new HashMap<>();
+        blockToRequiredPickaxeLevel.put(Material.GOLD_ORE, 2); // 철곡괭이 이상 필요
+        blockToRequiredPickaxeLevel.put(Material.DEEPSLATE_GOLD_ORE, 2);
+        blockToRequiredPickaxeLevel.put(Material.IRON_ORE, 1); // 돌곡괭이 이상 필요
+        blockToRequiredPickaxeLevel.put(Material.DEEPSLATE_IRON_ORE, 1);
+        blockToRequiredPickaxeLevel.put(Material.COPPER_ORE, 1); // 돌곡괭이 이상 필요
+        blockToRequiredPickaxeLevel.put(Material.DEEPSLATE_COPPER_ORE, 1);
+        blockToRequiredPickaxeLevel.put(Material.ANCIENT_DEBRIS, 3); // 다이아몬드곡괭이 이상 필요
+
+        // 곡괭이 레벨을 숫자로 변환
+        Map<Material, Integer> pickaxeLevelMap = new HashMap<>();
+        pickaxeLevelMap.put(Material.WOODEN_PICKAXE, 0);
+        pickaxeLevelMap.put(Material.STONE_PICKAXE, 1);
+        pickaxeLevelMap.put(Material.IRON_PICKAXE, 2);
+        pickaxeLevelMap.put(Material.DIAMOND_PICKAXE, 3);
+        pickaxeLevelMap.put(Material.NETHERITE_PICKAXE, 4);
+
+        int pickaxeLevel = pickaxeLevelMap.getOrDefault(tool.getType(), -1);
+
+        // 필요한 곡괭이 레벨과 사용된 곡괭이 레벨을 비교
+        if (blockToRequiredPickaxeLevel.containsKey(blockType)) {
+            int requiredLevel = blockToRequiredPickaxeLevel.get(blockType);
+            if (pickaxeLevel < requiredLevel) {
+                player.sendMessage(ChatColor.RED + "이 광석은 현재의 곡괭이로 부술 수 없습니다.");
+                return;
+            }
+        }
+
+        // 블록 타입이 oreToIngotMap에 있는 경우, 아이템 드롭
         if (oreToIngotMap.containsKey(blockType)) {
             event.setDropItems(false);
             event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), oreToIngotMap.get(blockType));

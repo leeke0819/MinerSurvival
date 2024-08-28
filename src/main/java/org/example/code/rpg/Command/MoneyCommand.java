@@ -96,7 +96,10 @@ public class MoneyCommand implements CommandExecutor {
                     // 스코어보드 업데이트
                     if (targetPlayer.isOnline()) {
                         PlayerScoreboardManager scoreboardManager = new PlayerScoreboardManager(plugin);
-                        scoreboardManager.setPlayerScoreboard(targetPlayer);
+                        scoreboardManager.setPlayerScoreboard(player); // 자신의 스코어보드 업데이트
+                        if (targetPlayer.isOnline()) {
+                            scoreboardManager.setPlayerScoreboard(targetPlayer); // 상대방의 스코어보드 업데이트
+                        }
                     }
                 } catch (NumberFormatException e) {
                     player.sendMessage(ChatColor.RED + "금액 형식이 올바르지 않습니다.");

@@ -67,9 +67,9 @@ public class GuiManager {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
 
         JobConfigManager jobConfigManager = plugin.getJobConfig();
-        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 10000, "원");
+        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 5000, "원");
         ItemStack customItem2 = createCustomItemForGUI(player, "광부", "2차", 30000, "원");
-        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 70000, "원");
+        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 65000, "원");
         ItemStack customItem4 = createCustomItemForGUI(player, "광부", "4차", 100000, "원");
 
         for (int i = 0; i < 10; i++) {
@@ -130,17 +130,17 @@ public class GuiManager {
         ItemStack itemStack10 = new ItemStack(Material.QUARTZ, 1);
         ItemStack itemStack11 = new ItemStack(Material.NETHERITE_INGOT, 1);
 
-        setItemMeta(itemStack1, "석탄", 10, 320, 640);
-        setItemMeta(itemStack2, "구리 주괴", 20, 640, 1280);
-        setItemMeta(itemStack3, "철 주괴", 30, 960, 1920);
-        setItemMeta(itemStack4, "금 주괴", 40, 1280, 2560);
-        setItemMeta(itemStack5, "레드스톤 가루", 5, 160, 320);
-        setItemMeta(itemStack6, "청금석", 50, 1600, 3200);
-        setItemMeta(itemStack7, "에메랄드", 70, 2240, 4480);
-        setItemMeta(itemStack8, "다이아몬드", 90, 2880, 5760);
-        setItemMeta(itemStack9, "자수정 조각", 100, 3200, 6400);
-        setItemMeta(itemStack10, "네더 석영", 120, 3840, 7680);
-        setItemMeta(itemStack11, "네더라이트 주괴", 150, 4800, 9600);
+        setItemMeta(itemStack1, "석탄", 30, 960, 1920);
+        setItemMeta(itemStack2, "구리 주괴", 40, 1280, 2560);
+        setItemMeta(itemStack3, "철 주괴", 50, 1600, 3200);
+        setItemMeta(itemStack4, "금 주괴", 60, 1920, 3840);
+        setItemMeta(itemStack5, "레드스톤 가루", 20, 640, 1280);
+        setItemMeta(itemStack6, "청금석", 80, 2560, 5120);
+        setItemMeta(itemStack7, "에메랄드", 90, 2880, 5760);
+        setItemMeta(itemStack8, "다이아몬드", 100, 3200, 6400);
+        setItemMeta(itemStack9, "자수정 조각", 120, 3840, 7680);
+        setItemMeta(itemStack10, "네더 석영", 150, 4800, 9600);
+        setItemMeta(itemStack11, "네더라이트 주괴", 250, 8000, 16000);
 
         for (int i = 0; i < 10; i++) {
             mineralShopInventory.setItem(i, itemStack);

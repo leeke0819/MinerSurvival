@@ -45,9 +45,13 @@ public class NameChangeManager implements Listener {
                 // 스코어보드 업데이트
                 plugin.getScoreboardManager().setPlayerScoreboard(player);
 
-                // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
+                // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab 누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
                 player.setDisplayName(newName);
                 player.setPlayerListName(newName);
+
+                // 플레이어 머리 위에 뜨는 이름 업데이트
+                player.setCustomName(newName);
+                player.setCustomNameVisible(true);
 
                 // 사용 이후 인벤토리에서 삭제
                 ItemStack itemInHand = player.getInventory().getItemInMainHand();

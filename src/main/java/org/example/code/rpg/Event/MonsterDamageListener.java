@@ -30,7 +30,7 @@ public class MonsterDamageListener implements Listener {
             Monster monster = (Monster) event.getDamager();
             // 몬스터 종류별로 데미지 증가
             if (monster instanceof Zombie) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
         }
 
@@ -43,6 +43,14 @@ public class MonsterDamageListener implements Listener {
                 // 플레이어에게 위더 효과 부여하기
                 PotionEffect wither = new PotionEffect(PotionEffectType.WITHER, 200, 0); // 10초 지속
                 player.addPotionEffect(wither);
+            }
+        }
+
+        if (event.getDamager() instanceof Monster) {
+            Monster monster = (Monster) event.getDamager();
+            // 몬스터 종류별로 데미지 증가
+            if (monster instanceof Spider) {
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
         }
 

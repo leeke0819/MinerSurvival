@@ -22,7 +22,7 @@ public class PluginHelpCommand implements CommandExecutor {
                     " \n" +
                     "- 사용 가능한 일반 명령어 목록 -\n\n" +
                     " \n" +
-                    "&e/돈\n&f: 현재 플레이어의 잔액을 확인합니다.\n" +
+                    "&e/돈 (플레이어 닉네임)\n&f: 해당 플레이어의 잔액을 확인합니다.\n" +
                     " \n" +
                     "&e/돈 송금 (플레이어 닉네임) (송금할 금액)\n&f: 해당 플레이어에게 돈을 송금합니다.\n" +
                     " \n" +

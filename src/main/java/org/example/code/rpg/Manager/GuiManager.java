@@ -34,6 +34,31 @@ public class GuiManager {
         setDisplayName(itemStack3, ChatColor.GRAY + "" + ChatColor.BOLD + "단서");
         setDisplayName(itemStack4, ChatColor.GREEN + "" + ChatColor.BOLD + "/도움말");
 
+        ItemMeta meta1 = itemStack1.getItemMeta();
+        ItemMeta meta2 = itemStack2.getItemMeta();
+        ItemMeta meta3 = itemStack3.getItemMeta();
+        ItemMeta meta4 = itemStack4.getItemMeta();
+
+        if (meta1 != null) {
+            meta1.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "전직책을 구매합니다."));
+            itemStack1.setItemMeta(meta1);
+        }
+
+        if (meta2 != null) {
+            meta2.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "광물을 판매합니다."));
+            itemStack2.setItemMeta(meta2);
+        }
+
+        if (meta3 != null) {
+            meta3.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "제단의 위치에 대한 단서를 확인합니다."));
+            itemStack3.setItemMeta(meta3);
+        }
+
+        if (meta4 != null) {
+            meta4.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "명령어를 확인합니다."));
+            itemStack4.setItemMeta(meta4);
+        }
+
         for (int i = 0; i < 10; i++) {
             basicsInventory.setItem(i, itemStack);
         }
@@ -49,6 +74,7 @@ public class GuiManager {
 
         player.openInventory(basicsInventory);
     }
+
 
     private void setDisplayName(ItemStack item, String name) {
         ItemMeta meta = item.getItemMeta();

@@ -23,17 +23,34 @@ public class MoneyCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "플레이어만 사용 가능한 명령어 입니다.");
             return true;
         }
-        if (command.getName().equals("돈") && args.length == 0) {
-            Player player = ((Player) sender).getPlayer();
-            player.sendMessage("현재 잔액 : " + moneyManager.getBalance(player));
-        }
 
         Player player = (Player) sender;
+
+        // /돈 명령어만 있을 때 자신의 잔액 조회
+        if (command.getName().equals("돈") && args.length == 0) {
+            player.sendMessage("현재 잔액 : " + moneyManager.getBalance(player));
+            return true;
+        }
+
+        // /돈 (플레이어 이름) 형식으로 입력된 경우 상대방의 잔액을 조회하는 명령어 추가
+        if (command.getName().equals("돈") && args.length == 1) {
+            Player targetPlayer = plugin.getServer().getPlayer(args[0]);
+
+            if (targetPlayer == null) {
+                player.sendMessage(ChatColor.RED + "해당 플레이어를 찾을 수 없습니다.");
+                return true;
+            }
+
+            // 대상 플레이어의 잔액 확인 후 메시지 출력
+            int targetBalance = moneyManager.getBalance(targetPlayer);
+            player.sendMessage(ChatColor.GREEN + targetPlayer.getName() + "님의 현재 잔액 : " + targetBalance + "원");
+            return true;
+        }
 
         //   /돈 입금 (유저 이름) (금액)
         // 돈 = (얜 그냥 명령어), 입금 = args[0], 유저 이름 = args[1], 금액 = args[2]
 
-        // 플레이어가 op라면
+        // 플레이어가 op라면(다른 코드에 로직 있음)
         if (args.length == 3) {
             Player targetPlayer = plugin.getServer().getPlayer(args[1]);
             if (command.getName().equals("돈") && args[0].equals("입금")) {

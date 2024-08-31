@@ -28,7 +28,7 @@ public class MoneyCommand implements CommandExecutor {
 
         // /돈 명령어만 있을 때 자신의 잔액 조회
         if (command.getName().equals("돈") && args.length == 0) {
-            player.sendMessage("현재 잔액 : " + moneyManager.getBalance(player));
+            player.sendMessage(ChatColor.GREEN + "현재 잔액 : " + ChatColor.YELLOW + moneyManager.getBalance(player) + ChatColor.GREEN + "원");
             return true;
         }
 
@@ -43,7 +43,7 @@ public class MoneyCommand implements CommandExecutor {
 
             // 대상 플레이어의 잔액 확인 후 메시지 출력
             int targetBalance = moneyManager.getBalance(targetPlayer);
-            player.sendMessage(ChatColor.GREEN + targetPlayer.getName() + "님의 현재 잔액 : " + targetBalance + "원");
+            player.sendMessage(ChatColor.YELLOW + targetPlayer.getName() + ChatColor.GREEN + "님의 현재 잔액 : " + ChatColor.YELLOW + targetBalance + ChatColor.GREEN + "원");
             return true;
         }
 

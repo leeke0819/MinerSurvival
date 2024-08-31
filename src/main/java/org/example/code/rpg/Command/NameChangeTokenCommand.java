@@ -12,7 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.example.code.rpg.RPG;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class NameChangeTokenCommand implements CommandExecutor {
     private RPG plugin;
@@ -48,9 +50,12 @@ public class NameChangeTokenCommand implements CommandExecutor {
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "이름 변경권");
-            meta.setLore(Collections.singletonList(ChatColor.RED + "변경한 이름은 다시 변경할 수 없습니다."));
+            List<String> lore = new ArrayList<>();
+            lore.add(ChatColor.RED + "변경한 이름은 다시 변경할 수 없습니다.");
+            lore.add(ChatColor.YELLOW + "(우클릭으로 사용 가능합니다.)");
             meta.addEnchant(Enchantment.DURABILITY, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
+            meta.setLore(lore);
             item.setItemMeta(meta);
         }
         return item;

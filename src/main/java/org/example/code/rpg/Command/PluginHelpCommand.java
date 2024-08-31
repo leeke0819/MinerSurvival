@@ -31,7 +31,7 @@ public class PluginHelpCommand implements CommandExecutor {
                     " \n" +
                     "- 사용 가능한 op 명령어 목록 -\n\n" +
                     " \n" +
-                    "&e/돈 입금 (플레이어 닉네임) (입금할 금액)\n&f: 해당 플레이어에게 무한의 돈이 있는 계좌에서 돈을 입금합니다.(op 명령어)\n" +
+                    "&e/돈 입금 (플레이어 닉네임) (입금할 금액)\n&f: 해당 플레이어에게 서버 계좌에서 돈을 입금합니다.(op 명령어)\n" +
                     " \n" +
                     "&e/돈 출금 (플레이어 닉네임) (출금할 금액)\n&f: 해당 플레이어의 잔액에서 돈을 출금합니다.(op 명령어)\n" +
                     " \n" +
@@ -40,7 +40,7 @@ public class PluginHelpCommand implements CommandExecutor {
                     "&e/이름변경권\n&f: 이름변경권을 지급합니다.(op 명령어)\n" +
                     " \n" +
                     " \n" +
-                    "&e버그는 Discord : 이케#9461으로 연락 주세요."
+                    "&e버그는 Discord : leeke_0 으로 연락 주세요."
     );
 
     @Override

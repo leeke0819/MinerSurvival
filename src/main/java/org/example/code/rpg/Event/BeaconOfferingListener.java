@@ -1,5 +1,6 @@
 package org.example.code.rpg.Event;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -113,7 +114,7 @@ public class BeaconOfferingListener implements Listener {
 
             // 모든 광물 공양이 완료되었는지 확인
             if (checkAllOfferingsComplete()) {
-                triggerCompletionSequence(player);
+                triggerCompletionSequence();
             }
         } else {
             player.sendMessage("공양할 광물이 부족합니다.");
@@ -133,38 +134,43 @@ public class BeaconOfferingListener implements Listener {
         return true;
     }
 
-    private void triggerCompletionSequence(Player player) {
-        player.setGameMode(GameMode.SPECTATOR);
-        player.sendTitle("§a모든 이상 현상이", "", 10, 60, 20);
+    private void triggerCompletionSequence() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.isOnline()) {
+                player.setGameMode(GameMode.SPECTATOR);
+                player.sendTitle("§a모든 이상 현상이", "", 10, 60, 20);
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                player.sendTitle("§a원상복구 되었습니다.", "", 10, 60, 20);
-            }
-        }.runTaskLater(plugin, 40L);  // 40L = 2초 후 (20 ticks = 1초)
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.sendTitle("§a원상복구 되었습니다.", "", 10, 60, 20);
+                    }
+                }.runTaskLater(plugin, 40L);  // 40L = 2초 후 (20 ticks = 1초)
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                player.sendTitle("§a지금까지", "", 10, 60, 20);
-            }
-        }.runTaskLater(plugin, 120L);  // 120L = 6초 후 (20 ticks = 1초)
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.sendTitle("§a지금까지", "", 10, 60, 20);
+                    }
+                }.runTaskLater(plugin, 120L);  // 120L = 6초 후 (20 ticks = 1초)
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                player.sendTitle("§a'광부로 살아남기'플러그인을", "", 10, 60, 20);
-            }
-        }.runTaskLater(plugin, 160L);  // 160L = 8초 후 (20 ticks = 1초)
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.sendTitle("§a'광부로 살아남기'플러그인을", "", 10, 60, 20);
+                    }
+                }.runTaskLater(plugin, 160L);  // 160L = 8초 후 (20 ticks = 1초)
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                player.sendTitle("§a플레이해주셔서 감사합니다.", "§e플러그인 제작자 : 이케", 10, 100, 20);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.sendTitle("§a플레이해주셔서 감사합니다.", "§e플러그인 제작자 : 이케", 10, 100, 20);
+                    }
+                }.runTaskLater(plugin, 200L);  // 200L = 10초 후 (20 ticks = 1초)
             }
-        }.runTaskLater(plugin, 200L);  // 200L = 10초 후 (20 ticks = 1초)
+        }
     }
+
 
     private String getMaterialName(Material material) {
         return materialNames.getOrDefault(material, material.name());

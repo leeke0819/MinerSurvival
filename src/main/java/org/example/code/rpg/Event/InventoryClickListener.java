@@ -105,6 +105,14 @@ public class InventoryClickListener implements Listener {
             return;
         }
 
+        if (clickedItem.getType() == Material.LIME_STAINED_GLASS_PANE && clickedItem.hasItemMeta()) {
+            String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
+
+            if (displayName.equals("메뉴로 돌아가기")) {
+                guiManager.openGui(player);  // 메뉴로 돌아가기
+            }
+        }
+
         if (clickedItem.getType() == Material.ENCHANTED_BOOK && clickedItem.hasItemMeta()) {
             String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
 
@@ -117,25 +125,25 @@ public class InventoryClickListener implements Listener {
                 guiManager.jobShop(player);
             } else if (displayName.equals("[전직] 광부 1차")) {
                 if (job.equals("직업 없음") && level.equals(" ")) {
-                    processJobPurchase(player, 10000, "광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
+                    processJobPurchase(player, 5000, "광부 1차", ChatColor.DARK_PURPLE + "광부 1차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "당신은 이미 직업을 가지고 있습니다.");
                 }
             } else if (displayName.equals("[전직] 광부 2차")) {
                 if (job.equals("§7§l광부") && level.equals("1차")) {
-                    processJobPurchase(player, 40000, "광부 2차", ChatColor.DARK_PURPLE + "광부 2차로 전직합니다.");
+                    processJobPurchase(player, 25000, "광부 2차", ChatColor.DARK_PURPLE + "광부 2차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "이 전직책을 구매하려면 '광부 1차' 이어야 합니다.");
                 }
             } else if (displayName.equals("[전직] 광부 3차")) {
                 if (job.equals("§7§l광부") && level.equals("2차")) {
-                    processJobPurchase(player, 70000, "광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
+                    processJobPurchase(player, 50000, "광부 3차", ChatColor.DARK_PURPLE + "광부 3차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "이 전직책을 구매하려면 '광부 2차' 이어야 합니다.");
                 }
             } else if (displayName.equals("[전직] 광부 4차")) {
                 if (job.equals("§7§l광부") && level.equals("3차")) {
-                    processJobPurchase(player, 100000, "광부 4차", ChatColor.DARK_PURPLE + "광부 4차로 전직합니다.");
+                    processJobPurchase(player, 80000, "광부 4차", ChatColor.DARK_PURPLE + "광부 4차로 전직합니다.");
                 } else {
                     player.sendMessage(ChatColor.RED + "이 전직책을 구매하려면 '광부 3차' 이어야 합니다.");
                 }
@@ -293,7 +301,9 @@ public class InventoryClickListener implements Listener {
             int currentSales = plugin.getSalesCount(player, clueName) + amountSold; // 플레이어별 판매량 저장 및 누적
             plugin.setSalesCount(player, clueName, currentSales);
 
-            if (currentSales >= requiredSales) {
+            // 클루가 이미 개방되었는지 확인
+            boolean isClueUnlocked = plugin.loadClueState(player, clueName);
+            if (!isClueUnlocked && currentSales >= requiredSales) {
                 player.sendMessage(ChatColor.GREEN + clueName + "이(가) 개방되었습니다!");
                 plugin.saveClueState(player, clueName, true);
             }

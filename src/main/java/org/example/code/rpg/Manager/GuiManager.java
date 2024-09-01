@@ -91,12 +91,20 @@ public class GuiManager {
         Inventory jobShopInventory = Bukkit.createInventory(null, 45, "전직 상점");
 
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
+        ItemStack itemStack2 = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 
         JobConfigManager jobConfigManager = plugin.getJobConfig();
-        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 10000, "원");
-        ItemStack customItem2 = createCustomItemForGUI(player, "광부", "2차", 40000, "원");
-        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 70000, "원");
-        ItemStack customItem4 = createCustomItemForGUI(player, "광부", "4차", 100000, "원");
+        ItemStack customItem1 = createCustomItemForGUI(player, "광부", "1차", 5000, "원");
+        ItemStack customItem2 = createCustomItemForGUI(player, "광부", "2차", 25000, "원");
+        ItemStack customItem3 = createCustomItemForGUI(player, "광부", "3차", 50000, "원");
+        ItemStack customItem4 = createCustomItemForGUI(player, "광부", "4차", 80000, "원");
+
+        ItemMeta meta2 = itemStack2.getItemMeta();
+
+        if (meta2 != null) {
+            meta2.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "메뉴로 돌아가기");
+            itemStack2.setItemMeta(meta2);
+        }
 
         for (int i = 0; i < 10; i++) {
             jobShopInventory.setItem(i, itemStack);
@@ -112,7 +120,11 @@ public class GuiManager {
         jobShopInventory.setItem(26, itemStack);
         jobShopInventory.setItem(27, itemStack);
         jobShopInventory.setItem(35, itemStack);
-        for (int i = 36; i < 45; i++) {
+        for (int i = 36; i < 40; i++) {
+            jobShopInventory.setItem(i, itemStack);
+        }
+        jobShopInventory.setItem(40, itemStack2);
+        for (int i = 41; i < 45; i++) {
             jobShopInventory.setItem(i, itemStack);
         }
         player.openInventory(jobShopInventory);
@@ -143,6 +155,7 @@ public class GuiManager {
         Inventory mineralShopInventory = Bukkit.createInventory(null, 45, "광물 상점");
 
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
+        ItemStack itemStack12 = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 
         ItemStack itemStack1 = new ItemStack(Material.COAL, 1);
         ItemStack itemStack2 = new ItemStack(Material.COPPER_INGOT, 1);
@@ -155,6 +168,13 @@ public class GuiManager {
         ItemStack itemStack9 = new ItemStack(Material.AMETHYST_SHARD, 1);
         ItemStack itemStack10 = new ItemStack(Material.QUARTZ, 1);
         ItemStack itemStack11 = new ItemStack(Material.NETHERITE_INGOT, 1);
+
+        ItemMeta meta12 = itemStack12.getItemMeta();
+
+        if (meta12 != null) {
+            meta12.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "메뉴로 돌아가기");
+            itemStack12.setItemMeta(meta12);
+        }
 
         setItemMeta(itemStack1, "석탄", 30, 960, 1920);
         setItemMeta(itemStack2, "구리 주괴", 40, 1280, 2560);
@@ -187,7 +207,11 @@ public class GuiManager {
         mineralShopInventory.setItem(32, itemStack10);
         mineralShopInventory.setItem(34, itemStack11);
         mineralShopInventory.setItem(35, itemStack);
-        for (int i = 36; i < 45; i++) {
+        for (int i = 36; i < 40; i++) {
+            mineralShopInventory.setItem(i, itemStack);
+        }
+        mineralShopInventory.setItem(40, itemStack12);
+        for (int i = 41; i < 45; i++) {
             mineralShopInventory.setItem(i, itemStack);
         }
         player.openInventory(mineralShopInventory);
@@ -222,11 +246,13 @@ public class GuiManager {
         ItemStack itemStack2 = new ItemStack(Material.PAPER, 1);
         ItemStack itemStack3 = new ItemStack(Material.PAPER, 1);
         ItemStack itemStack4 = new ItemStack(Material.NETHER_STAR, 1);
+        ItemStack itemStack5 = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 
         ItemMeta meta1 = itemStack1.getItemMeta();
         ItemMeta meta2 = itemStack2.getItemMeta();
         ItemMeta meta3 = itemStack3.getItemMeta();
         ItemMeta meta4 = itemStack4.getItemMeta();
+        ItemMeta meta5 = itemStack5.getItemMeta();
 
         if (clue1Unlocked && meta1 != null) {
             meta1.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "단서1");
@@ -267,6 +293,11 @@ public class GuiManager {
             itemStack4.setItemMeta(meta4);
         }
 
+        if (meta5 != null) {
+            meta5.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "메뉴로 돌아가기");
+            itemStack5.setItemMeta(meta5);
+        }
+
         for (int i = 0; i < 10; i++) {
             cluesInventory.setItem(i, itemStack);
         }
@@ -275,10 +306,13 @@ public class GuiManager {
         cluesInventory.setItem(15, clue3Unlocked ? itemStack3 : itemStack4);
         cluesInventory.setItem(17, itemStack);
 
-        for (int i = 18; i < 27; i++) {
+        for (int i = 18; i < 22; i++) {
             cluesInventory.setItem(i, itemStack);
         }
-
+        cluesInventory.setItem(22, itemStack5);
+        for(int i = 23; i < 27; i++) {
+            cluesInventory.setItem(i, itemStack);
+        }
         player.openInventory(cluesInventory);
     }
 }

@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.example.code.rpg.Command.NameChangeTokenCommand;
 import org.example.code.rpg.Manager.MoneyManager;
+import org.example.code.rpg.Manager.NameTagChangerManager;
 import org.example.code.rpg.Manager.PlayerScoreboardManager;
 import org.example.code.rpg.RPG;
 
@@ -61,8 +62,9 @@ public class PlayerJoinListener implements Listener {
         // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
         player.setDisplayName(playerName);
         player.setPlayerListName(playerName);
-
+        NameTagChangerManager.changePlayerNameTag(player, playerName);
         event.setJoinMessage(ChatColor.GREEN + "[+] " + ChatColor.WHITE + playerName);
+
 
         // 플레이어가 이전에 접속한 적이 있는지 확인 -> hasPlayedBefore() 메서드
         if (!player.hasPlayedBefore()) {

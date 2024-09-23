@@ -2,6 +2,7 @@ package org.example.code.rpg.Event;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -168,6 +169,10 @@ public class InventoryClickListener implements Listener {
             ItemStack customItem = createCustomItem(jobName, lore);
             addCustomItemToPlayer(player, customItem);
             scoreboardManager.setPlayerScoreboard(player);
+
+            // 전직책 구매 후 소리 재생
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+
         } else {
             player.sendMessage(ChatColor.RED + "잔액이 부족합니다.");
         }
@@ -285,6 +290,10 @@ public class InventoryClickListener implements Listener {
             player.getInventory().removeItem(new ItemStack(material, amountToSell));
             updateSalesCount(player, material, amountToSell);
             scoreboardManager.setPlayerScoreboard(player);
+
+            // 아이템 판매 후 소리 재생
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+
         } else {
             player.sendMessage(ChatColor.RED + "판매할 " + materialName + "이(가) 충분하지 않습니다.");
         }

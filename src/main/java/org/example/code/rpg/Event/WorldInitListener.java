@@ -56,6 +56,9 @@ public class WorldInitListener implements Listener {
             for (int j = chunkZ - 1; j <= chunkZ + 1; j++) {
                 Chunk chunk = world.getChunkAt(i, j);
                 chunk.load(true);
+                if (!chunk.isLoaded()) {
+                    chunk.load();  // 청크가 로드되지 않았다면 다시 로드 시도
+                }
 
                 // 청크 내 모든 블록 확인
                 for (int bx = 0; bx < 16; bx++) {

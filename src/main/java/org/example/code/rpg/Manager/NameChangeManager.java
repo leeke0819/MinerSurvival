@@ -49,9 +49,6 @@ public class NameChangeManager implements Listener {
                 player.setDisplayName(newName);
                 player.setPlayerListName(newName);
 
-                // NameTagChanger를 사용하여 머리 위에 뜨는 이름 변경
-                NameTagChangerManager.changePlayerNameTag(player, newName);
-
                 // 사용 이후 인벤토리에서 삭제
                 ItemStack itemInHand = player.getInventory().getItemInMainHand();
                 if (itemInHand != null && itemInHand.getType() == Material.PAPER && itemInHand.hasItemMeta()) {

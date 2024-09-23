@@ -1,7 +1,6 @@
 package org.example.code.rpg.Event;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -11,16 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.example.code.rpg.Command.NameChangeTokenCommand;
 import org.example.code.rpg.Manager.MoneyManager;
-import org.example.code.rpg.Manager.NameTagChangerManager;
 import org.example.code.rpg.Manager.PlayerScoreboardManager;
 import org.example.code.rpg.RPG;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -62,7 +56,7 @@ public class PlayerJoinListener implements Listener {
         // 이름 변경하기(플레이어 위에 뜨는 마인크래프트 고유 닉네임, Tab누르면 뜨는 플레이어 목록 리스트에 뜨는 닉네임)
         player.setDisplayName(playerName);
         player.setPlayerListName(playerName);
-        NameTagChangerManager.changePlayerNameTag(player, playerName);
+
         event.setJoinMessage(ChatColor.GREEN + "[+] " + ChatColor.WHITE + playerName);
 
 

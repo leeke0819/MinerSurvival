@@ -20,18 +20,18 @@
     
 | 월드 | 광석 이름 | 광석에 포함된 산소량 (단위 : 초) |
 |:----------:|:----------:|:----------:|
-| 오버월드 | 석탄 광석 | 10 |
-| 오버월드 | 레드스톤 광석 | 15 |
-| 오버월드 | 구리 광석 | 20 |
-| 오버월드 | 철 광석 | 30 |
-| 오버월드 | 금 광석 | 40 |
-| 네더 | 네더 금 광석 | 45 |
-| 오버월드 | 자수정 군집 | 50 |
-| 네더 | 네더 석영 광석 | 55 |
-| 오버월드 | 청금석 광석 | 60 |
-| 오버월드 | 다이아몬드 광석 | 120 |
-| 오버월드 | 에메랄드 광석 | 240 |
-| 네더 | 고대 잔해 | 300 |
+| 오버월드 | 석탄 광석 | 5 |
+| 오버월드 | 레드스톤 광석 | 10 |
+| 오버월드 | 구리 광석 | 10 |
+| 네더 | 네더 금 광석 | 10 |
+| 오버월드 | 철 광석 | 15 |
+| 네더 | 네더 석영 광석 | 15 |
+| 오버월드 | 금 광석 | 20 |
+| 오버월드 | 청금석 광석 | 25 |
+| 오버월드 | 자수정 군집 | 30 |
+| 오버월드 | 다이아몬드 광석 | 35 |
+| 오버월드 | 에메랄드 광석 | 40 |
+| 네더 | 고대 잔해 | 120 |
 
 - **광부 직업에 대한 설명은 아래의 표에 적혀 있습니다.**
 
@@ -68,17 +68,17 @@ The features of this plugin are as follows.
 | World | Ore Name | Ore contains oxygen amount (Unit : Seconds) |
 |:----------:|:----------:|:----------:|
 | Overworld | Coal Ore | 10 |
-| Overworld | Redstone Ore | 15 |
-| Overworld | Copper Ore | 20 |
-| Overworld | Iron Ore | 30 |
-| Overworld | Gold Ore | 40 |
-| Nether | Nether Gold Ore | 45 |
-| Overworld | Amethyst Cluster | 50 |
-| Nether | Nether Quartz Ore | 55 |
-| Overworld | Lapus Lazuli Ore | 60 |
-| Overworld | Diamond Ore | 120 |
-| Overworld| Emerald Ore | 240 |
-| Nether | Ancient Debris | 300 |
+| Overworld | Redstone Ore | 10 |
+| Overworld | Copper Ore | 10 |
+| Nether | Nether Gold Ore | 10 |
+| Overworld | Iron Ore | 15 |
+| Nether | Nether Quartz Ore | 15 |
+| Overworld | Gold Ore | 20 |
+| Overworld | Lapus Lazuli Ore | 25 |
+| Overworld | Amethyst Cluster | 30 |
+| Overworld | Diamond Ore | 35 |
+| Overworld| Emerald Ore | 40 |
+| Nether | Ancient Debris | 120 |
 
 - **A description of the miner's job is given in the table below.**
 

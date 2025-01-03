@@ -224,26 +224,26 @@ public class BlockBreakListener implements Listener {
 
     private void handleOxygenRecovery(Player player, Material blockType) {
         Map<Material, Double> oxygenRecoveryMap = new HashMap<>();
-        oxygenRecoveryMap.put(Material.COAL_ORE, 10.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_COAL_ORE, 10.0);
-        oxygenRecoveryMap.put(Material.COPPER_ORE, 20.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_COPPER_ORE, 20.0);
-        oxygenRecoveryMap.put(Material.IRON_ORE, 30.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_IRON_ORE, 30.0);
-        oxygenRecoveryMap.put(Material.GOLD_ORE, 40.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_GOLD_ORE, 40.0);
-        oxygenRecoveryMap.put(Material.REDSTONE_ORE, 15.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_REDSTONE_ORE, 15.0);
-        oxygenRecoveryMap.put(Material.LAPIS_ORE, 60.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_LAPIS_ORE, 60.0);
-        oxygenRecoveryMap.put(Material.EMERALD_ORE, 240.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_EMERALD_ORE, 240.0);
-        oxygenRecoveryMap.put(Material.DIAMOND_ORE, 120.0);
-        oxygenRecoveryMap.put(Material.DEEPSLATE_DIAMOND_ORE, 120.0);
-        oxygenRecoveryMap.put(Material.AMETHYST_CLUSTER, 50.0);
-        oxygenRecoveryMap.put(Material.NETHER_GOLD_ORE, 45.0);
-        oxygenRecoveryMap.put(Material.NETHER_QUARTZ_ORE, 55.0);
-        oxygenRecoveryMap.put(Material.ANCIENT_DEBRIS, 300.0);
+        oxygenRecoveryMap.put(Material.COAL_ORE, 5.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_COAL_ORE, 5.0);
+        oxygenRecoveryMap.put(Material.COPPER_ORE, 10.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_COPPER_ORE, 10.0);
+        oxygenRecoveryMap.put(Material.IRON_ORE, 15.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_IRON_ORE, 15.0);
+        oxygenRecoveryMap.put(Material.GOLD_ORE, 20.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_GOLD_ORE, 20.0);
+        oxygenRecoveryMap.put(Material.REDSTONE_ORE, 10.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_REDSTONE_ORE, 10.0);
+        oxygenRecoveryMap.put(Material.LAPIS_ORE, 25.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_LAPIS_ORE, 25.0);
+        oxygenRecoveryMap.put(Material.EMERALD_ORE, 40.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_EMERALD_ORE, 40.0);
+        oxygenRecoveryMap.put(Material.DIAMOND_ORE, 35.0);
+        oxygenRecoveryMap.put(Material.DEEPSLATE_DIAMOND_ORE, 35.0);
+        oxygenRecoveryMap.put(Material.AMETHYST_CLUSTER, 30.0);
+        oxygenRecoveryMap.put(Material.NETHER_GOLD_ORE, 10.0);
+        oxygenRecoveryMap.put(Material.NETHER_QUARTZ_ORE, 15.0);
+        oxygenRecoveryMap.put(Material.ANCIENT_DEBRIS, 120.0);
 
         if (oxygenRecoveryMap.containsKey(blockType)) {
             double newOxygenTime = playerO2.getOrDefault(player.getUniqueId(), 0.0) + oxygenRecoveryMap.get(blockType);

@@ -33,62 +33,62 @@ public class MonsterDamageListener implements Listener {
 
             // 좀비
             if (monster instanceof Zombie) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 좀비 주민
             if (monster instanceof ZombieVillager) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 허스크
             if (monster instanceof Husk) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 드라운드
             if (monster instanceof Drowned) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 위더 스켈레톤
             if (monster instanceof WitherSkeleton) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 거미
             if (monster instanceof Spider) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 팬텀
             if (monster instanceof Phantom) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 피글린
             if (monster instanceof Piglin) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 난폭한 피글린
             if (monster instanceof PiglinBrute) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 좀벌레
             if (monster instanceof Silverfish) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 호글린
             if (monster instanceof Hoglin) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
 
             // 조글린
             if (monster instanceof Zoglin) {
-                event.setDamage(event.getDamage() * 2.0); // 기존 데미지에 2배
+                event.setDamage(event.getDamage() * 1.5); // 기존 데미지에 1.5배
             }
         }
 
